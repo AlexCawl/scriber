@@ -1,0 +1,32 @@
+[versions]
+kotlin = "1.9.22"
+kotlin-coroutines = "1.8.0"
+kotlinx-serialization = "1.6.3"
+compose = "1.6.0"
+junit = "5.8.2"
+ksp = "1.9.0-1.0.12"
+dagger = "2.48"
+sqldelight = "2.0.0"
+
+# [Build params versions]
+jdk = "17"
+
+[libraries]
+junit = { group = "org.junit.jupiter", name = "junit-jupiter-api", version.ref = "junit" }
+junit-engine = { group = "org.junit.jupiter", name = "junit-jupiter-engine", version = "junit" }
+kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }
+kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
+dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
+kotlin-sql-driver = { group = "app.cash.sqldelight", name = "sqlite-driver", version.ref = "sqldelight" }
+
+# [plugin dependencies]
+pluginDependency-kotlin-serialization = { group = "org.jetbrains.kotlin", name = "kotlin-serialization", version.ref = "kotlin" }
+pluginDependency-kotlin-gradle = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+pluginDependency-kotlin-ksp = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+pluginDependency-kotlin-compose = { group = "org.jetbrains.compose", name = "compose-gradle-plugin", version.ref = "compose" }
+pluginDependency-kotlin-sql = { group = "app.cash.sqldelight", name = "gradle-plugin", version.ref = "sqldelight" }
+
+[plugins] # Not used
+kotlin-gradle = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

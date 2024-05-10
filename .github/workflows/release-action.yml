@@ -1,0 +1,71 @@
+name: Release Gradle project
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+env:
+  JAVA_VERSION: 17
+  JAVA_DISTRIBUTION: temurin
+
+jobs:
+  package-gradle-project:
+    name: Build release
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout project sources
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ env.JAVA_VERSION }}
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Run package with Gradle Wrapper
+        run: ./gradlew package
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-${{ matrix.os }}
+          path: app/build/package/main/*/
+
+  upload-release:
+    name: Upload and create new release
+    needs: package-gradle-project
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Create environment variables
+        run: |
+          date="$(date +"%Y-%m-%d")"
+          tag="Release_${{ github.run_number }}_$date"
+          echo "date=$date" >> $GITHUB_ENV
+          echo "tag=$tag" >> $GITHUB_ENV
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Create release
+        uses: softprops/action-gh-release@v0.1.7
+        with:
+          name: "Release #${{ github.run_number }} ${{ env.date }}"
+          tag_name: ${{ env.tag }}
+          files: artifacts/*/*/*.*
+
+      - name: Delete previous
+        uses: geekyeggo/delete-artifact@v2
+        with:
+          name: ${{ env.projectName }}*
