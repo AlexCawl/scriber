@@ -1,4 +1,4 @@
-package org.alexcawl.template
+package org.alexcawl.scriber
 
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver

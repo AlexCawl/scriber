@@ -5,7 +5,7 @@ plugins {
     id("compose-convention")
 }
 
-group = "org.alexcawl.template"
+group = "org.alexcawl.scriber"
 version = "1.0-SNAPSHOT"
 
 dependencies {
@@ -27,7 +27,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             outputBaseDir.set(project.buildDir.resolve("package"))
-            packageName = "kmp-desktop-template"
+            packageName = "scriber"
             packageVersion = "1.0.0"
         }
     }

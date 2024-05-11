@@ -5,7 +5,7 @@ plugins {
 sqldelight {
     databases {
         create("Database") {
-            packageName.set("org.alexcawl.template")
+            packageName.set("org.alexcawl.scriber")
         }
     }
 }
