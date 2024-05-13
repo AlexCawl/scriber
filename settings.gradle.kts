@@ -21,8 +21,18 @@ dependencyResolutionManagement {
 rootProject.name = "kmp-desktop-template"
 
 include(":app")
+
+// :core
 include(":core:common")
 include(":core:data")
 include(":core:di")
 include(":core:ui")
+
+// :cv
 include(":cv")
+
+// :video
+include(":video")
+include(":video:ui")
+include(":video:domain")
+include(":video:data")
