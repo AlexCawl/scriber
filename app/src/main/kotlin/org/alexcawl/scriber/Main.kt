@@ -1,10 +1,18 @@
 package org.alexcawl.scriber
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Icon
+import androidx.compose.material.NavigationRail
+import androidx.compose.material.NavigationRailItem
+import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -12,6 +20,7 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import org.alexcawl.scriber.component.input.FileInputField
 import org.alexcawl.scriber.component.input.FileInputFieldType
+import org.alexcawl.scriber.component.layout.DesktopScaffold
 import org.alexcawl.scriber.theme.ExtendedTheme
 import org.alexcawl.scriber.theme.ScriberTheme
 
@@ -19,32 +28,73 @@ import org.alexcawl.scriber.theme.ScriberTheme
 @Preview
 fun App() {
     ScriberTheme {
-        Row(
+        DesktopScaffold(
             modifier = Modifier.fillMaxSize(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(ExtendedTheme.sizes.large)
+            navigationRail = {
+                NavigationRail(
+                    header = {
+                        Icon(
+                            imageVector = Icons.Default.Edit,
+                            contentDescription = null
+                        )
+                    }
+                ) {
+                    NavigationRailItem(
+                        selected = false,
+                        onClick = {},
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Default.Home,
+                                contentDescription = null
+                            )
+                        },
+                        label = {
+                            Text("Home")
+                        }
+                    )
+
+                    NavigationRailItem(
+                        selected = false,
+                        onClick = {},
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Default.Favorite,
+                                contentDescription = null
+                            )
+                        },
+                        label = {
+                            Text("Favorite")
+                        }
+                    )
+                }
+            }
         ) {
-            FileInputField(
-                title = "Select file:",
-                inputType = FileInputFieldType.DRAG_AND_DROP,
-                isSingleSelection = false,
-                consume = {
-                    println("From DRAG_AND_DROP: $it")
-                },
-                modifier = Modifier.weight(1f)
-            )
+            Row(
+                modifier = Modifier.fillMaxSize(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(ExtendedTheme.sizes.large)
+            ) {
+                FileInputField(
+                    title = "Select file:",
+                    inputType = FileInputFieldType.DRAG_AND_DROP,
+                    isSingleSelection = false,
+                    consume = {
+                        println("From DRAG_AND_DROP: $it")
+                    },
+                    modifier = Modifier.weight(1f)
+                )
 
-            FileInputField(
-                title = "Select file:",
-                inputType = FileInputFieldType.DIALOG,
-                isSingleSelection = false,
-                consume = {
-                    println("From DIALOG: $it")
-                },
-                modifier = Modifier.weight(1f)
-            )
+                FileInputField(
+                    title = "Select file:",
+                    inputType = FileInputFieldType.DIALOG,
+                    isSingleSelection = false,
+                    consume = {
+                        println("From DIALOG: $it")
+                    },
+                    modifier = Modifier.weight(1f)
+                )
+            }
         }
-
     }
 }
 
