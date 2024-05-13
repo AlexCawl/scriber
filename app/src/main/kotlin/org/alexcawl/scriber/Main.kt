@@ -9,10 +9,7 @@ import androidx.compose.material.NavigationRail
 import androidx.compose.material.NavigationRailItem
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Call
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -44,7 +41,7 @@ fun App() {
                         onClick = {},
                         icon = {
                             Icon(
-                                imageVector = Icons.Default.Home,
+                                imageVector = Icons.Default.VideoFile,
                                 contentDescription = null
                             )
                         },
@@ -58,7 +55,7 @@ fun App() {
                         onClick = {},
                         icon = {
                             Icon(
-                                imageVector = Icons.Default.Favorite,
+                                imageVector = Icons.Default.LinkedCamera,
                                 contentDescription = null
                             )
                         },

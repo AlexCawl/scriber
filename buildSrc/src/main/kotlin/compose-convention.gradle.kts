@@ -11,4 +11,5 @@ plugins {
 dependencies {
     implementation(compose.desktop.common)
     implementation(libs.kotlin.coroutines.swing)
+    implementation(libs.material.icons)
 }
