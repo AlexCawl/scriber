@@ -60,9 +60,11 @@ private class DragAndDropAdapter(
                 if (flavor.isFlavorJavaFileListType) {
                     val files = transferable.getTransferData(flavor) as List<File>
                     for (file in files) {
-                        onFileDropped(file)
-                        if (isSingleFile) {
-                            break
+                        if (file.isFile) {
+                            onFileDropped(file)
+                            if (isSingleFile) {
+                                break
+                            }
                         }
                     }
                 }
