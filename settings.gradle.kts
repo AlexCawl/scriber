@@ -27,6 +27,7 @@ include(":core:common")
 include(":core:data")
 include(":core:di")
 include(":core:ui")
+include(":core:mvi")
 
 // :cv
 include(":cv")
