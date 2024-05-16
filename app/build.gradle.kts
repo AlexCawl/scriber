@@ -3,6 +3,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 plugins {
     id("kotlin-convention")
     id("compose-convention")
+    id("dagger-convention")
 }
 
 group = "org.alexcawl.scriber"
@@ -18,6 +19,7 @@ dependencies {
     implementation(project(":core:di"))
     implementation(project(":core:ui"))
     implementation(project(":core:data"))
+    implementation(project(":core:mvi"))
 }
 
 compose.desktop {

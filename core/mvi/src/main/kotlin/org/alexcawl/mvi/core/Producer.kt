@@ -1,7 +1,7 @@
 package org.alexcawl.mvi.core
 
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
-interface Producer<S : Any> {
-    val state: Flow<S>
+interface Producer<S> {
+    val state: StateFlow<S>
 }
