@@ -1,6 +1,7 @@
 package org.alexcawl.scriber
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -30,8 +31,17 @@ fun DemoApp() = StoreFactoryScope(DemoStoreFactory) {
 
 @Composable
 fun DemoScreen() = StoreScope<DemoState, DemoAction, DemoStore> {
-    val state by state.collectAsState()
-    DemoScreenInternal(state)
+    val state1 by this.state.collectAsState()
+    Row {
+        DemoScreenInternal(state1)
+        StoreScope<DemoState, DemoAction, DemoStore> {
+            val state2 by this.state.collectAsState()
+            Column {
+                DemoScreenInternal(state2)
+                DemoScreenInternal(state1)
+            }
+        }
+    }
 }
 
 @Composable

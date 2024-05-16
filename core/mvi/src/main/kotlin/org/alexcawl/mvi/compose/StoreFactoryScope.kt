@@ -1,14 +1,12 @@
 package org.alexcawl.mvi.compose
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.ProvidableCompositionLocal
-import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.runtime.*
 import org.alexcawl.mvi.core.Disposable
 
 internal val LocalStoreFactoryProvider: ProvidableCompositionLocal<Disposable.Factory> =
     staticCompositionLocalOf { error("LocalStoreFactoryProvider not initialized.") }
 
+@Stable
 @Composable
 fun <F : Disposable.Factory> StoreFactoryScope(
     factory: F,
@@ -23,5 +21,5 @@ fun <F : Disposable.Factory> StoreFactoryScope(
 
 object StoreFactoryProvider {
     val factory: Disposable.Factory
-        @Composable get() = LocalStoreFactoryProvider.current
+        @Stable @Composable get() = LocalStoreFactoryProvider.current
 }

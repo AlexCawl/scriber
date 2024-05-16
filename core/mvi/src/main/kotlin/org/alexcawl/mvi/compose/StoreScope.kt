@@ -4,6 +4,7 @@ import androidx.compose.runtime.*
 import org.alexcawl.mvi.core.Disposable
 import org.alexcawl.mvi.core.Store
 
+@Stable
 @Composable
 inline fun <S, E, reified M : Store<S, E>> StoreScope(
     crossinline content: @Composable M.() -> Unit

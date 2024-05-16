@@ -39,7 +39,6 @@ abstract class Store<S, E>(
     }
 
     final override fun onDispose() {
-        println("Disposed")
         job?.cancel()
         job = null
     }
