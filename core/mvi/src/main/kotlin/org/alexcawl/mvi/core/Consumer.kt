@@ -1,5 +1,5 @@
 package org.alexcawl.mvi.core
 
-interface Consumer<E : Any> {
+interface Consumer<E> {
     fun consume(event: E)
 }
