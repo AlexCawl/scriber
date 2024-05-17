@@ -22,7 +22,7 @@ class Navigation(
 
 
 @Composable
-fun Navigation.Builder.destination(route: String, content: @Composable () -> Unit) =
+fun Navigation.Builder.destination(route: String, content: @Composable () -> Unit): Unit =
     when (navController.currentDestination.value) {
         route -> content()
         else -> Unit

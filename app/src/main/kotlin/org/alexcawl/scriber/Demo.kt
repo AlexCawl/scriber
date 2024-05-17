@@ -4,7 +4,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -12,56 +15,34 @@ import org.alexcawl.mvi.compose.StoreFactoryScope
 import org.alexcawl.mvi.compose.StoreScope
 import org.alexcawl.mvi.core.Store
 import org.alexcawl.mvi.core.StoreFactory
-import org.alexcawl.scriber.navigation.Navigation
-import org.alexcawl.scriber.navigation.destination
-import org.alexcawl.scriber.navigation.rememberNavController
 import javax.inject.Provider
 
 @Composable
 fun DemoApp() = StoreFactoryScope(DemoStoreFactory) {
-    var isShown by remember { mutableStateOf(true) }
-    val controller by rememberNavController("true")
-    Column {
-        Button(onClick = {
-            isShown = !isShown
-            controller.navigate(isShown.toString())
-        }) {
-            Text("Toggle")
-        }
-        Navigation(controller) {
-            destination("true") {
-                DemoScreen()
-            }
-            destination("false") {
-                Text("Nothing here")
-            }
-        }.build()
-    }
+    DemoScreen()
 }
 
 @Composable
 fun DemoScreen() = StoreScope<DemoState, DemoAction, DemoStore> {
-    val state1 by this.state.collectAsState()
-    Row {
-        DemoScreenInternal(state1)
-        StoreScope<DemoState, DemoAction, DemoStore> {
-            val state2 by this.state.collectAsState()
-            Column {
-                DemoScreenInternal(state2)
-                DemoScreenInternal(state1)
+    val state by this.state.collectAsState()
+    Column {
+        Text(
+            text = when (state) {
+                DemoState.Loading -> "Loading"
+                is DemoState.Main -> (state as DemoState.Main).number.toString()
             }
-        }
-    }
-}
-
-@Composable
-private fun DemoStore.DemoScreenInternal(state: DemoState) {
-    Button(
-        onClick = { consume(DemoAction.Increment) }
-    ) {
-        when (state) {
-            DemoState.Loading -> Text("Button")
-            is DemoState.Main -> Text(state.number.toString())
+        )
+        Row {
+            Button(
+                onClick = { consume(DemoAction.Increment) }
+            ) {
+                Text("+")
+            }
+            Button(
+                onClick = { consume(DemoAction.Decrement) }
+            ) {
+                Text("-")
+            }
         }
     }
 }
