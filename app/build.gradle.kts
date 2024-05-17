@@ -17,6 +17,9 @@ dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:mvi"))
     implementation(project(":video"))
+    implementation(project(":video:ui"))
+    implementation(project(":video:domain"))
+    implementation(project(":video:data"))
 }
 
 compose.desktop {
