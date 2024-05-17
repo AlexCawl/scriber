@@ -18,16 +18,11 @@ fun DragAndDropFileInputField(
     title: String,
     isSingleSelection: Boolean,
     modifier: Modifier = Modifier
-) = BoxWithConstraints(
+) = SwingPanel(
     modifier = modifier,
-    contentAlignment = Alignment.Center
-) {
-    SwingPanel(
-        modifier = Modifier.sizeIn(minWidth, minHeight, maxWidth, maxHeight),
-        background = Color.Transparent,
-        factory = { swingDragAndDropField(title, consume, isSingleSelection) }
-    )
-}
+    background = Color.Transparent,
+    factory = { swingDragAndDropField(title, consume, isSingleSelection) }
+)
 
 private fun swingDragAndDropField(
     label: String,

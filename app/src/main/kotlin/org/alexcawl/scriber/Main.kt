@@ -1,9 +1,7 @@
 package org.alexcawl.scriber
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.NavigationRail
 import androidx.compose.material.NavigationRailItem
@@ -13,10 +11,12 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import org.alexcawl.scriber.component.input.FileInputField
 import org.alexcawl.scriber.component.input.FileInputFieldType
+import org.alexcawl.scriber.component.input.ToggleFileInputField
 import org.alexcawl.scriber.component.layout.DesktopScaffold
 import org.alexcawl.scriber.theme.ExtendedTheme
 import org.alexcawl.scriber.theme.ScriberTheme
@@ -67,26 +67,15 @@ fun App() {
             }
         ) {
             Row(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(ExtendedTheme.sizes.large)
             ) {
-                FileInputField(
+                ToggleFileInputField(
                     title = "Select file:",
-                    inputType = FileInputFieldType.DRAG_AND_DROP,
-                    isSingleSelection = false,
+                    isSingleSelection = true,
                     consume = {
-                        println("From DRAG_AND_DROP: $it")
-                    },
-                    modifier = Modifier.weight(1f)
-                )
-
-                FileInputField(
-                    title = "Select file:",
-                    inputType = FileInputFieldType.DIALOG,
-                    isSingleSelection = false,
-                    consume = {
-                        println("From DIALOG: $it")
+                        println("File: $it")
                     },
                     modifier = Modifier.weight(1f)
                 )
@@ -97,6 +86,6 @@ fun App() {
 
 fun main() = application {
     Window(onCloseRequest = ::exitApplication) {
-        DemoApp()
+        App()
     }
 }
