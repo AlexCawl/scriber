@@ -12,20 +12,30 @@ import org.alexcawl.mvi.compose.StoreFactoryScope
 import org.alexcawl.mvi.compose.StoreScope
 import org.alexcawl.mvi.core.Store
 import org.alexcawl.mvi.core.StoreFactory
+import org.alexcawl.scriber.navigation.Navigation
+import org.alexcawl.scriber.navigation.destination
+import org.alexcawl.scriber.navigation.rememberNavController
 import javax.inject.Provider
 
 @Composable
 fun DemoApp() = StoreFactoryScope(DemoStoreFactory) {
     var isShown by remember { mutableStateOf(true) }
+    val controller by rememberNavController("true")
     Column {
-        Button(
-            onClick = { isShown = !isShown }
-        ) {
-            Text("Show Demo")
+        Button(onClick = {
+            isShown = !isShown
+            controller.navigate(isShown.toString())
+        }) {
+            Text("Toggle")
         }
-        if (isShown) {
-            DemoScreen()
-        }
+        Navigation(controller) {
+            destination("true") {
+                DemoScreen()
+            }
+            destination("false") {
+                Text("Nothing here")
+            }
+        }.build()
     }
 }
 
@@ -72,8 +82,6 @@ sealed interface DemoAction {
 @OptIn(DelicateCoroutinesApi::class)
 class DemoStore : Store<DemoState, DemoAction>(GlobalScope, DemoState.Loading) {
     override fun createTask(event: DemoAction): suspend CoroutineScope.(DemoState) -> DemoState {
-        println(event)
-        println(state.value)
         return when (event) {
             DemoAction.Decrement -> { prev ->
                 when (prev) {
@@ -81,6 +89,7 @@ class DemoStore : Store<DemoState, DemoAction>(GlobalScope, DemoState.Loading) {
                     is DemoState.Main -> DemoState.Main(prev.number - 1)
                 }
             }
+
             DemoAction.Increment -> { prev ->
                 when (prev) {
                     DemoState.Loading -> DemoState.Main(0)
@@ -91,4 +100,4 @@ class DemoStore : Store<DemoState, DemoAction>(GlobalScope, DemoState.Loading) {
     }
 }
 
-object DemoStoreFactory: StoreFactory(mapOf(DemoStore::class.java to Provider { DemoStore() }))
+object DemoStoreFactory : StoreFactory(mapOf(DemoStore::class.java to Provider { DemoStore() }))
