@@ -1,4 +1,7 @@
 plugins {
     id("dagger-convention")
-    id("compose-convention")
+}
+
+dependencies {
+    implementation(project(":core:common"))
 }
