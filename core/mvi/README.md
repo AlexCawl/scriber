@@ -67,28 +67,28 @@ object DemoStoreFactory : StoreFactory(
 ```kotlin
 @Composable
 fun DemoScreen() = StoreScope<DemoState, DemoAction, DemoStore> {
-        val state by this.state.collectAsState()
-        Column {
-            Text(
-                text = when (state) {
-                    DemoState.Loading -> "Loading"
-                    is DemoState.Main -> (state as DemoState.Main).number.toString()
-                }
-            )
-            Row {
-                Button(
-                    onClick = { consume(DemoAction.Increment) }
-                ) {
-                    Text("+")
-                }
-                Button(
-                    onClick = { consume(DemoAction.Decrement) }
-                ) {
-                    Text("-")
-                }
+    val state by this.state.collectAsState()
+    Column {
+        Text(
+            text = when (state) {
+                DemoState.Loading -> "Loading"
+                is DemoState.Main -> (state as DemoState.Main).number.toString()
+            }
+        )
+        Row {
+            Button(
+                onClick = { consume(DemoAction.Increment) }
+            ) {
+                Text("+")
+            }
+            Button(
+                onClick = { consume(DemoAction.Decrement) }
+            ) {
+                Text("-")
             }
         }
     }
+}
 ```
 
 Будем вызывать его из функции-обертки, создающей область видимости для фабрики.
@@ -96,8 +96,8 @@ fun DemoScreen() = StoreScope<DemoState, DemoAction, DemoStore> {
 ```kotlin
 @Composable
 fun DemoApp() = StoreFactoryScope(DemoStoreFactory) {
-        DemoScreen()
-    }
+    DemoScreen()
+}
 ```
 
 Начальное состояние:
