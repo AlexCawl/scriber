@@ -4,11 +4,7 @@ import org.gradle.kotlin.dsl.the
 val libs = the<org.gradle.accessors.dm.LibrariesForLibs>()
 
 plugins {
-    `java-gradle-plugin`
-}
-
-java {
-    version = libs.versions.jdk.get()
+    id("kotlin-convention")
 }
 
 dependencies {

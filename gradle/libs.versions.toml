@@ -7,7 +7,7 @@ junit = "5.8.2"
 ksp = "1.9.22-1.0.17"
 dagger = "2.48"
 sqldelight = "2.0.0"
-opencv = "4.6.0-0"
+opencv = "1.5.10"
 
 # [Build params versions]
 jdk = "17"
@@ -21,16 +21,12 @@ kotlin-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-s
 dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
 dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
 kotlin-sql-driver = { group = "app.cash.sqldelight", name = "sqlite-driver", version.ref = "sqldelight" }
-opencv = { group = "org.openpnp", name = "opencv", version.ref = "opencv" }
+opencv = { group = "org.bytedeco", name = "javacv-platform", version.ref = "opencv" }
 material-icons = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "compose" }
 
-# [plugin dependencies]
+# [plugins as dependencies]
 pluginDependency-kotlin-serialization = { group = "org.jetbrains.kotlin", name = "kotlin-serialization", version.ref = "kotlin" }
 pluginDependency-kotlin-gradle = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 pluginDependency-kotlin-ksp = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 pluginDependency-kotlin-compose = { group = "org.jetbrains.compose", name = "compose-gradle-plugin", version.ref = "compose" }
 pluginDependency-kotlin-sql = { group = "app.cash.sqldelight", name = "gradle-plugin", version.ref = "sqldelight" }
-
-[plugins] # Not used
-kotlin-gradle = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
