@@ -9,6 +9,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.LinkedCamera
 import androidx.compose.material.icons.filled.VideoFile
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,14 +20,18 @@ import androidx.compose.ui.window.application
 import org.alexcawl.mvi.compose.StoreFactoryScope
 import org.alexcawl.scriber.component.input.ToggleFileInputField
 import org.alexcawl.scriber.component.layout.DesktopScaffold
+import org.alexcawl.scriber.navigation.Navigation
+import org.alexcawl.scriber.navigation.destination
+import org.alexcawl.scriber.navigation.rememberNavController
 import org.alexcawl.scriber.theme.ExtendedTheme
 import org.alexcawl.scriber.theme.ScriberTheme
-import org.alexcawl.scriber.video.DemoScreen
+import org.alexcawl.scriber.video.VideoScreen
 
 @Composable
 @Preview
 fun App() {
     ScriberTheme {
+        val navigation by rememberNavController("camera")
         DesktopScaffold(
             modifier = Modifier.fillMaxSize(),
             navigationRail = {
@@ -40,7 +45,9 @@ fun App() {
                 ) {
                     NavigationRailItem(
                         selected = false,
-                        onClick = {},
+                        onClick = {
+                            navigation.navigate("video")
+                        },
                         icon = {
                             Icon(
                                 imageVector = Icons.Default.VideoFile,
@@ -48,13 +55,15 @@ fun App() {
                             )
                         },
                         label = {
-                            Text("Home")
+                            Text("Video")
                         }
                     )
 
                     NavigationRailItem(
                         selected = false,
-                        onClick = {},
+                        onClick = {
+                            navigation.navigate("camera")
+                        },
                         icon = {
                             Icon(
                                 imageVector = Icons.Default.LinkedCamera,
@@ -62,27 +71,33 @@ fun App() {
                             )
                         },
                         label = {
-                            Text("Favorite")
+                            Text("Camera")
                         }
                     )
                 }
             }
         ) {
-            Column {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.Top,
-                    horizontalArrangement = Arrangement.spacedBy(ExtendedTheme.sizes.large, Alignment.Start)
-                ) {
-                    ToggleFileInputField(
-                        title = "Select file:",
-                        isSingleSelection = true,
-                        consume = ::println,
-                        modifier = Modifier.weight(1f).background(Color.LightGray, shape = MaterialTheme.shapes.large).padding(16.dp).height(64.dp)
-                    )
+            Navigation(navigation) {
+                destination("video") {
+                    VideoScreen(modifier = Modifier.fillMaxSize())
                 }
-                DemoScreen()
-            }
+                destination("camera") {
+                    Column {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.Top,
+                            horizontalArrangement = Arrangement.spacedBy(ExtendedTheme.sizes.large, Alignment.Start)
+                        ) {
+                            ToggleFileInputField(
+                                title = "Select file:",
+                                isSingleSelection = true,
+                                consume = ::println,
+                                modifier = Modifier.weight(1f).background(Color.LightGray, shape = MaterialTheme.shapes.large).padding(16.dp).height(64.dp)
+                            )
+                        }
+                    }
+                }
+            }.build()
         }
     }
 }
