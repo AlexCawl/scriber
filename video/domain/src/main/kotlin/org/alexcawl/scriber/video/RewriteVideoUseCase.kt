@@ -11,7 +11,7 @@ class RewriteVideoUseCase(
 ) {
     operator fun invoke(from: File, to: File) {
         scope.launch(Dispatchers.IO) {
-            val result = analyzer.rewriteVideo(from, to)
+            val result = analyzer.downloadMotionDetectedVideo(from, to)
             println(result.exceptionOrNull())
         }
     }
