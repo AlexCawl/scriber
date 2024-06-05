@@ -38,7 +38,7 @@ internal fun VideoScreenContent(
         Row {
             Text(text = state.fileName)
             IconButton(
-                onClick = { event(VideoScreenAction.ActivateDetector) }
+                onClick = { event(VideoScreenAction.DownloadVideo) }
             ) {
                 Icon(
                     imageVector = Icons.Default.PlayArrow,
@@ -55,7 +55,7 @@ internal fun VideoScreenContent(
                     )
                 }
                 IconButton(
-                    onClick = { event(VideoScreenAction.DownloadVideo) }
+                    onClick = { event(VideoScreenAction.DownloadLogs) }
                 ) {
                     Icon(
                         imageVector = Icons.Default.FileDownload,

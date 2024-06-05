@@ -8,7 +8,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import org.alexcawl.scriber.mvi.core.Disposable
 import org.alexcawl.scriber.mvi.core.DisposableKey
-import org.alexcawl.scriber.video.VideoScreenStore
 
 @Module
 interface VideoModule {
@@ -19,6 +18,16 @@ interface VideoModule {
 
     companion object {
         @Provides
-        fun provideDemoStore(): VideoScreenStore = VideoScreenStore(CoroutineScope(Dispatchers.Default))
+        fun provideModuleScope(): CoroutineScope = CoroutineScope(Dispatchers.Default)
+
+        @Provides
+        fun provideDemoStore(scope: CoroutineScope, useCase: RewriteVideoUseCase): VideoScreenStore = VideoScreenStore(scope, useCase)
+
+        @Provides
+        fun provideVideoAnalyzer(): VideoAnalyzer = VideoAnalyzer()
+
+        @Provides
+        fun provideRewriteVideoUseCase(scope: CoroutineScope, videoAnalyzer: VideoAnalyzer): RewriteVideoUseCase =
+            RewriteVideoUseCase(scope, videoAnalyzer)
     }
 }
