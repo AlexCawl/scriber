@@ -17,14 +17,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import org.alexcawl.mvi.compose.StoreFactoryScope
-import org.alexcawl.scriber.component.input.ToggleFileInputField
-import org.alexcawl.scriber.component.layout.DesktopScaffold
-import org.alexcawl.scriber.navigation.Navigation
-import org.alexcawl.scriber.navigation.destination
-import org.alexcawl.scriber.navigation.rememberNavController
-import org.alexcawl.scriber.theme.ExtendedTheme
-import org.alexcawl.scriber.theme.ScriberTheme
+import org.alexcawl.scriber.mvi.compose.StoreFactoryScope
+import org.alexcawl.scriber.ui.component.input.ToggleFileInputField
+import org.alexcawl.scriber.ui.component.layout.DesktopScaffold
+import org.alexcawl.scriber.ui.navigation.Navigation
+import org.alexcawl.scriber.ui.navigation.destination
+import org.alexcawl.scriber.ui.navigation.rememberNavController
+import org.alexcawl.scriber.ui.theme.ExtendedTheme
+import org.alexcawl.scriber.ui.theme.ScriberTheme
 import org.alexcawl.scriber.video.VideoScreen
 
 @Composable

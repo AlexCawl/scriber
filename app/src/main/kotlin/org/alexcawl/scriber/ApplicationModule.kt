@@ -2,8 +2,9 @@ package org.alexcawl.scriber
 
 import dagger.Module
 import dagger.Provides
-import org.alexcawl.mvi.core.Disposable
-import org.alexcawl.mvi.core.StoreFactory
+import org.alexcawl.scriber.mvi.core.Disposable
+import org.alexcawl.scriber.mvi.core.StoreFactory
+import org.alexcawl.scriber.video.VideoModule
 import javax.inject.Provider
 
 @Module(includes = [VideoModule::class])

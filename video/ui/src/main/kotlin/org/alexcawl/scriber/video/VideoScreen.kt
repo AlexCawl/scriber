@@ -12,8 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import org.alexcawl.mvi.compose.StoreScope
-import org.alexcawl.scriber.component.input.ToggleFileInputField
+import org.alexcawl.scriber.mvi.compose.StoreScope
+import org.alexcawl.scriber.ui.component.input.ToggleFileInputField
 
 @Composable
 fun VideoScreen(
@@ -83,8 +83,18 @@ internal fun VideoScreenContent(
                 .height(64.dp)
         )
         Text("Select params")
-        ParameterSelection("Accuracy", "0", {})
-        ParameterSelection("Threshold value", "0", {})
+        ParameterSelection(
+            label = "Accuracy",
+            value = state.accuracy.toString(),
+            onSelected = {
+                event(VideoScreenAction.SetAccuracy(0f))
+            })
+        ParameterSelection(
+            label = "Threshold value",
+            value = state.threshold.toString(),
+            onSelected = {
+                event(VideoScreenAction.SetThreshold(0))
+            })
         Button(
             onClick = { comparisonWindowOpened = !comparisonWindowOpened }
         ) {

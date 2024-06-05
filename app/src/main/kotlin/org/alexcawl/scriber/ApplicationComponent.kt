@@ -1,7 +1,7 @@
 package org.alexcawl.scriber
 
 import dagger.Component
-import org.alexcawl.mvi.core.Disposable
+import org.alexcawl.scriber.mvi.core.Disposable
 import javax.inject.Singleton
 
 @Singleton
