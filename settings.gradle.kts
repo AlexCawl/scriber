@@ -26,10 +26,7 @@ include(":app")
 include(":core:common")
 include(":core:ui")
 include(":core:mvi")
-include(":core:data")
-
-// :cv
-include(":cv")
+include(":core:cv")
 
 // :video
 include(":video")

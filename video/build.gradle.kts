@@ -5,8 +5,8 @@ plugins {
 dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
-    implementation(project(":core:data"))
     implementation(project(":core:mvi"))
+    implementation(project(":core:cv"))
 
     implementation(project(":video:ui"))
     implementation(project(":video:domain"))

@@ -14,7 +14,6 @@ dependencies {
     implementation(compose.desktop.currentOs)
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
-    implementation(project(":core:data"))
     implementation(project(":core:mvi"))
     implementation(project(":video"))
     implementation(project(":video:ui"))

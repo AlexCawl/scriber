@@ -8,5 +8,5 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.opencv)
+    api(libs.opencv)
 }
