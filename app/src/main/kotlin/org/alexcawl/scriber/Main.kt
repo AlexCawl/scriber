@@ -90,7 +90,7 @@ fun App() {
 fun main() = run {
     val applicationComponent = DaggerApplicationComponent.create()
     application {
-        val logo = painterResource("scriber_logo_b&w.svg")
+        val logo = painterResource("scriber_logo_colored.svg")
         StoreFactoryScope(applicationComponent.storeFactory) {
             Window(onCloseRequest = ::exitApplication, icon = logo) {
                 App()
