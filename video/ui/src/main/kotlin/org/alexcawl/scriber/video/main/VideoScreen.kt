@@ -43,34 +43,39 @@ internal fun VideoScreenContent(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(text = state.videoFile?.name ?: "File not selected!")
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
-            ) {
-                IconButton(
-                    onClick = { event(VideoScreenAction.ShowDifference) }
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.PlayArrow,
-                        contentDescription = null
-                    )
-                }
-                IconButton(
-                    onClick = { event(VideoScreenAction.DownloadVideo) }
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.VideoFile,
-                        contentDescription = null
-                    )
-                }
-                IconButton(
-                    onClick = { event(VideoScreenAction.DownloadLogs) }
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.FileDownload,
-                        contentDescription = null
-                    )
+            when (state) {
+                VideoScreenState.Initial -> Text(text = "File not selected!")
+                is VideoScreenState.Setup -> {
+                    Text(text = state.videoFile.name)
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
+                    ) {
+                        IconButton(
+                            onClick = { event(VideoScreenAction.ShowDifference) }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.PlayArrow,
+                                contentDescription = null
+                            )
+                        }
+                        IconButton(
+                            onClick = { event(VideoScreenAction.DownloadVideo) }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.VideoFile,
+                                contentDescription = null
+                            )
+                        }
+                        IconButton(
+                            onClick = { event(VideoScreenAction.DownloadLogs) }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.FileDownload,
+                                contentDescription = null
+                            )
+                        }
+                    }
                 }
             }
         }
