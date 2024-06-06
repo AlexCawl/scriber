@@ -1,17 +1,13 @@
-package org.alexcawl.scriber.video
+package org.alexcawl.scriber.video.main
 
 import java.io.File
 
 sealed interface VideoScreenAction {
     data class SelectVideoFile(val file: File) : VideoScreenAction
 
-    data object ActivateDetector : VideoScreenAction
+    data object ShowDifference : VideoScreenAction
 
     data object DownloadVideo : VideoScreenAction
 
     data object DownloadLogs : VideoScreenAction
-
-    data class SetAccuracy(val accuracy: Float) : VideoScreenAction
-
-    data class SetThreshold(val threshold: Int) : VideoScreenAction
 }

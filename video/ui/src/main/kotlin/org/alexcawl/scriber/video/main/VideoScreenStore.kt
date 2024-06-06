@@ -1,7 +1,8 @@
-package org.alexcawl.scriber.video
+package org.alexcawl.scriber.video.main
 
 import kotlinx.coroutines.CoroutineScope
 import org.alexcawl.scriber.mvi.core.Store
+import org.alexcawl.scriber.video.RewriteVideoUseCase
 import java.io.File
 
 class VideoScreenStore(

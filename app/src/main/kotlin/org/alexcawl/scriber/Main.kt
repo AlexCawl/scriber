@@ -25,7 +25,7 @@ import org.alexcawl.scriber.ui.navigation.destination
 import org.alexcawl.scriber.ui.navigation.rememberNavController
 import org.alexcawl.scriber.ui.theme.ExtendedTheme
 import org.alexcawl.scriber.ui.theme.ScriberTheme
-import org.alexcawl.scriber.video.VideoScreen
+import org.alexcawl.scriber.video.main.VideoScreen
 
 @Composable
 @Preview
