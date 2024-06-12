@@ -3,44 +3,48 @@ package org.alexcawl.scriber.mvi.core
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 abstract class Store<S, E>(
-    private val scope: CoroutineScope,
+    scope: CoroutineScope,
     initialState: S
 ) : Disposable, Producer<S>, Consumer<E> {
     private val innerState: MutableStateFlow<S> = MutableStateFlow(initialState)
-    private val dispatchChannel = Channel<suspend CoroutineScope.(S) -> S>()
+    private val innerEvent = MutableSharedFlow<E>(0, Int.MAX_VALUE)
+    private val dispatchChannel = Channel<suspend StoreContext<S>.() -> Unit>(Channel.UNLIMITED)
     private var job: Job? = null
+    private val context = StoreContext(innerState::update)
 
     init {
         job = scope.launch {
-            for (event in dispatchChannel) {
-                launch {
-                    val newState = event(innerState.value)
-                    innerState.emit(newState)
+            launch {
+                for (task in dispatchChannel) {
+                    launch {
+                        task(context)
+                    }
                 }
+            }
+            launch {
+                innerEvent.collect(::handle)
             }
         }
     }
 
-    protected abstract fun createTask(event: E): suspend CoroutineScope.(S) -> S
-
     final override val state: StateFlow<S> = innerState.asStateFlow()
 
     final override fun consume(event: E) {
-        scope.launch {
-            val task = createTask(event)
-            dispatchChannel.send(task)
-        }
+        innerEvent.tryEmit(event)
     }
 
     final override fun onDispose() {
         job?.cancel()
         job = null
+    }
+
+    protected abstract fun handle(event: E)
+
+    protected fun task(task: suspend StoreContext<S>.() -> Unit) {
+        dispatchChannel.trySend(task)
     }
 }
