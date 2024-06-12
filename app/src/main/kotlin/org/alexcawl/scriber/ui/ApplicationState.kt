@@ -7,10 +7,7 @@ sealed interface ApplicationState {
     val isDarkTheme: Boolean
 
     @Immutable
-    data object Loading : ApplicationState {
-        override val isDarkTheme: Boolean
-            get() = false
-    }
+    data class Loading(override val isDarkTheme: Boolean) : ApplicationState
 
     @Immutable
     data class CameraDetectionScreen(override val isDarkTheme: Boolean) : ApplicationState

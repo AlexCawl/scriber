@@ -37,7 +37,7 @@ abstract class Store<S, E>(
         innerEvent.tryEmit(event)
     }
 
-    final override fun onDispose() {
+    override fun onDispose() {
         job?.cancel()
         job = null
     }
