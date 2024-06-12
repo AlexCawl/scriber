@@ -4,6 +4,8 @@ plugins {
     id("kotlin-convention")
     id("compose-convention")
     id("dagger-convention")
+    id("opencv-convention")
+    id("persistence-convention")
 }
 
 dependencies {
@@ -15,6 +17,7 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
     implementation(project(":core:mvi"))
+    implementation(project(":core:data"))
     implementation(project(":video"))
     implementation(project(":video:ui"))
     implementation(project(":video:domain"))

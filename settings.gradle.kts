@@ -27,6 +27,7 @@ include(":core:common")
 include(":core:ui")
 include(":core:mvi")
 include(":core:cv")
+include(":core:data")
 
 // :video
 include(":video")

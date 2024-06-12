@@ -8,6 +8,7 @@ ksp = "1.9.22-1.0.17"
 dagger = "2.48"
 sqldelight = "2.0.0"
 opencv = "1.5.10"
+datastore = "1.0.0"
 
 # [Build params versions]
 jdk = "17"
@@ -23,6 +24,7 @@ dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", versi
 kotlin-sql-driver = { group = "app.cash.sqldelight", name = "sqlite-driver", version.ref = "sqldelight" }
 opencv = { group = "org.bytedeco", name = "javacv-platform", version.ref = "opencv" }
 material-icons = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "compose" }
+datastore = { group = "androidx.datastore", name = "datastore-preferences-core", version.ref = "datastore"}
 
 # [plugins as dependencies]
 pluginDependency-kotlin-serialization = { group = "org.jetbrains.kotlin", name = "kotlin-serialization", version.ref = "kotlin" }
