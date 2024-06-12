@@ -12,7 +12,7 @@ internal val LocalExtendedSizes = staticCompositionLocalOf { ExtendedSize() }
 internal val LocalExtendedColors = staticCompositionLocalOf { ExtendedColor() }
 
 @Composable
-fun ScriberTheme(
+fun ThemeScope(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {

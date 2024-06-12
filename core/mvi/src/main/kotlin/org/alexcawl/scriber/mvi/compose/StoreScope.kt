@@ -28,6 +28,6 @@ inline fun <S, E, reified M : Store<S, E>> StoreScope(
 @Stable
 @Composable
 inline fun <S, E, reified M : Store<S, E>> rememberStore(): State<M> {
-    val store: M = StoreFactoryProvider.factory.create(M::class.java)
+    val store: M = FactoryProvider.factory.create(M::class.java)
     return remember { mutableStateOf(store) }
 }

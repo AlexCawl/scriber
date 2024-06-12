@@ -17,20 +17,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import org.alexcawl.scriber.mvi.compose.StoreFactoryScope
+import org.alexcawl.scriber.mvi.compose.ComponentScope
 import org.alexcawl.scriber.ui.component.input.ToggleFileInputField
 import org.alexcawl.scriber.ui.component.layout.DesktopScaffold
 import org.alexcawl.scriber.ui.navigation.Navigation
 import org.alexcawl.scriber.ui.navigation.destination
 import org.alexcawl.scriber.ui.navigation.rememberNavController
 import org.alexcawl.scriber.ui.theme.ExtendedTheme
-import org.alexcawl.scriber.ui.theme.ScriberTheme
+import org.alexcawl.scriber.ui.theme.ThemeScope
 import org.alexcawl.scriber.video.main.VideoScreen
 
 @Composable
 @Preview
 fun App() {
-    ScriberTheme {
+    ThemeScope {
         val navigation by rememberNavController("camera")
         DesktopScaffold(
             modifier = Modifier.fillMaxSize(),
@@ -106,7 +106,7 @@ fun main() = run {
     val applicationComponent = DaggerApplicationComponent.create()
     application {
         val logo = painterResource("scriber_logo_colored.svg")
-        StoreFactoryScope(applicationComponent.storeFactory) {
+        ComponentScope(applicationComponent) {
             Window(onCloseRequest = ::exitApplication, icon = logo) {
                 App()
             }
