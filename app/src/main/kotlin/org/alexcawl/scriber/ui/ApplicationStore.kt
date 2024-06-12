@@ -1,7 +1,6 @@
 package org.alexcawl.scriber.ui
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.first
 import org.alexcawl.scriber.data.ThemeRepository
 import org.alexcawl.scriber.mvi.core.Store
 import org.alexcawl.scriber.ui.navigation.NavigationAction
@@ -26,7 +25,7 @@ class ApplicationStore(
             }
         }
         task {
-            themeRepository.getTheme().collect { theme: Boolean ->
+            themeRepository.get().collect { theme: Boolean ->
                 reduce {
                     when (it) {
                         is ApplicationState.Loading -> ApplicationState.Loading(theme)
@@ -43,12 +42,13 @@ class ApplicationStore(
             ApplicationAction.NavigateToCamera -> task {
                 navigationStore.consume(NavigationAction.NavigateToCamera)
             }
+
             ApplicationAction.NavigateToVideo -> task {
                 navigationStore.consume(NavigationAction.NavigateToVideo)
             }
+
             ApplicationAction.ToggleTheme -> task {
-                val theme = themeRepository.getTheme().first()
-                themeRepository.setTheme(!theme)
+                themeRepository.toggle()
             }
         }
     }

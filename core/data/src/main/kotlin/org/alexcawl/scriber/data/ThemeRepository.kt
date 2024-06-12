@@ -4,24 +4,17 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.first
+
+private val IS_DARK_MODE = booleanPreferencesKey("dark_mode")
 
 class ThemeRepository(
-    private val dataStore: DataStore<Preferences>
-) {
-    private object PreferencesKeys {
-        val IS_DARK_MODE = booleanPreferencesKey("dark_mode")
-    }
-
-    fun getTheme(): Flow<Boolean> = dataStore.data.map { preferences ->
-        val isDarkTheme = preferences[PreferencesKeys.IS_DARK_MODE] ?: false
-        isDarkTheme
-    }
-
-    suspend fun setTheme(isDarkTheme: Boolean) {
+    dataStore: DataStore<Preferences>
+) : PropertyRepository<Boolean>(dataStore, IS_DARK_MODE, false) {
+    suspend fun toggle(): Result<Unit> = runCatching {
         dataStore.edit { preferences ->
-            preferences[PreferencesKeys.IS_DARK_MODE] = isDarkTheme
+            val current = get().first()
+            preferences[key] = !current
         }
     }
 }
