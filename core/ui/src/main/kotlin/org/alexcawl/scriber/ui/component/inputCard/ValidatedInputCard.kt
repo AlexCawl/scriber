@@ -26,6 +26,10 @@ fun <T> ValidatedInputCard(
     var text: String by remember { mutableStateOf(valueMapper(initialValue)) }
     var isError: Boolean by remember { mutableStateOf(false) }
 
+    LaunchedEffect(initialValue) {
+        text = valueMapper(initialValue)
+    }
+
     Row(
         modifier = Modifier.fillMaxWidth().padding(8.dp),
         verticalAlignment = Alignment.CenterVertically,

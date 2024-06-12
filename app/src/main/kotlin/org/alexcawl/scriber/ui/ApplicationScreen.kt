@@ -20,7 +20,7 @@ import org.alexcawl.scriber.ui.component.input.ToggleFileInputField
 import org.alexcawl.scriber.ui.component.layout.DesktopScaffold
 import org.alexcawl.scriber.ui.theme.ExtendedTheme
 import org.alexcawl.scriber.ui.theme.ThemeScope
-import org.alexcawl.scriber.video.main.VideoScreen
+import org.alexcawl.scriber.video.VideoScreen
 
 @Composable
 fun ApplicationScreen() = StoreScope<ApplicationState, ApplicationAction, ApplicationStore> {

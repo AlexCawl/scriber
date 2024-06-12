@@ -9,6 +9,7 @@ import dagger.multibindings.IntoMap
 import org.alexcawl.scriber.data.dataStorePreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
+import org.alexcawl.configuration.ConfigurationModule
 import org.alexcawl.scriber.data.ThemeRepository
 import org.alexcawl.scriber.mvi.core.Disposable
 import org.alexcawl.scriber.mvi.core.DisposableKey
@@ -17,8 +18,9 @@ import org.alexcawl.scriber.ui.ApplicationStore
 import org.alexcawl.scriber.ui.navigation.NavigationStore
 import org.alexcawl.scriber.video.VideoModule
 import javax.inject.Provider
+import javax.inject.Singleton
 
-@Module(includes = [VideoModule::class])
+@Module(includes = [VideoModule::class, ConfigurationModule::class])
 interface ApplicationModule {
     @Binds
     @IntoMap
@@ -36,6 +38,7 @@ interface ApplicationModule {
             object : StoreFactory(creators) {}
 
         @Provides
+        @Singleton
         fun provideDataStore(): DataStore<Preferences> = dataStorePreferences(
             corruptionHandler = null,
             coroutineScope = CoroutineScope(SupervisorJob()),

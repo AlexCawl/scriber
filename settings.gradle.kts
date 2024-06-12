@@ -34,3 +34,9 @@ include(":video")
 include(":video:ui")
 include(":video:domain")
 include(":video:data")
+
+// :configuration
+include(":configuration")
+include(":configuration:ui")
+include(":configuration:domain")
+include(":configuration:data")

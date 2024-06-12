@@ -10,7 +10,7 @@ private val IS_DARK_MODE = booleanPreferencesKey("dark_mode")
 
 class ThemeRepository(
     dataStore: DataStore<Preferences>
-) : PropertyRepository<Boolean>(dataStore, IS_DARK_MODE, false) {
+) : DataStorePropertyRepository<Boolean>(dataStore, IS_DARK_MODE, false) {
     suspend fun toggle(): Result<Unit> = runCatching {
         dataStore.edit { preferences ->
             val current = get().first()
