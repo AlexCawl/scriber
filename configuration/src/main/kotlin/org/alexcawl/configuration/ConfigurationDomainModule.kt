@@ -2,32 +2,33 @@ package org.alexcawl.configuration
 
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 interface ConfigurationDomainModule {
     companion object {
         @Provides
-        @ConfigurationScope
+        @Singleton
         fun provideGetAccuracyUseCase(repository: AccuracyPropertyRepository): GetAccuracyUseCase = GetAccuracyUseCase(repository)
 
         @Provides
-        @ConfigurationScope
+        @Singleton
         fun provideSetAccuracyUseCase(repository: AccuracyPropertyRepository): SetAccuracyUseCase = SetAccuracyUseCase(repository)
 
         @Provides
-        @ConfigurationScope
+        @Singleton
         fun provideGetBlurScaleUseCase(repository: BlurScalePropertyRepository): GetBlurScaleUseCase = GetBlurScaleUseCase(repository)
 
         @Provides
-        @ConfigurationScope
+        @Singleton
         fun provideSetBlurScaleUseCase(repository: BlurScalePropertyRepository): SetBlurScaleUseCase = SetBlurScaleUseCase(repository)
 
         @Provides
-        @ConfigurationScope
+        @Singleton
         fun provideGetThresholdUseCase(repository: ThresholdPropertyRepository): GetThresholdUseCase = GetThresholdUseCase(repository)
 
         @Provides
-        @ConfigurationScope
+        @Singleton
         fun provideSetThresholdUseCase(repository: ThresholdPropertyRepository): SetThresholdUseCase = SetThresholdUseCase(repository)
     }
 }

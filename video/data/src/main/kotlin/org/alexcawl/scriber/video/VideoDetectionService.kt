@@ -13,7 +13,8 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import javax.imageio.ImageIO
 
-class VideoAnalyzer {
+// TODO: move into :cv module
+class VideoDetectionService {
     @Deprecated("unused")
     fun rewriteVideo(from: File, to: File): Result<Unit> = runCatching {
         FFmpegFrameGrabber(from).use { grabber: FrameGrabber ->

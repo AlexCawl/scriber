@@ -7,6 +7,7 @@ import dagger.multibindings.IntoMap
 import kotlinx.coroutines.CoroutineScope
 import org.alexcawl.scriber.mvi.core.Disposable
 import org.alexcawl.scriber.mvi.core.DisposableKey
+import javax.inject.Singleton
 
 @Module
 internal interface VideoUiModule {
@@ -17,6 +18,11 @@ internal interface VideoUiModule {
 
     companion object {
         @Provides
-        fun provideVideoScreenStore(scope: CoroutineScope, useCase: RewriteVideoUseCase): VideoScreenStore = VideoScreenStore(scope, useCase)
+        @Singleton
+        fun provideVideoScreenStore(
+            scope: CoroutineScope,
+            getFileUseCase: GetVideoFileUseCase,
+            setFileUseCase: SetVideoFileUseCase
+        ): VideoScreenStore = VideoScreenStore(scope, getFileUseCase, setFileUseCase)
     }
 }

@@ -4,20 +4,21 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import dagger.Module
 import dagger.Provides
+import javax.inject.Singleton
 
 @Module
 interface ConfigurationDataModule {
     companion object {
         @Provides
-        @ConfigurationScope
+        @Singleton
         fun provideAccuracyRepository(dataStore: DataStore<Preferences>) = AccuracyPropertyRepository(dataStore)
 
         @Provides
-        @ConfigurationScope
+        @Singleton
         fun provideBlurScaleRepository(dataStore: DataStore<Preferences>) = BlurScalePropertyRepository(dataStore)
 
         @Provides
-        @ConfigurationScope
+        @Singleton
         fun provideThresholdRepository(dataStore: DataStore<Preferences>) = ThresholdPropertyRepository(dataStore)
     }
 }

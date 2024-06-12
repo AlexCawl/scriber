@@ -5,18 +5,17 @@ import dagger.Provides
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import javax.inject.Singleton
 
 @Module(includes = [VideoUiModule::class, VideoDomainModule::class, VideoDataModule::class])
 interface VideoModule {
     companion object {
         @Provides
+        @Singleton
         fun provideModuleScope(): CoroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
 
         @Provides
-        fun provideVideoAnalyzer(): VideoAnalyzer = VideoAnalyzer()
-
-        @Provides
-        fun provideRewriteVideoUseCase(scope: CoroutineScope, videoAnalyzer: VideoAnalyzer): RewriteVideoUseCase =
-            RewriteVideoUseCase(scope, videoAnalyzer)
+        @Singleton
+        fun provideVideoAnalyzer(): VideoDetectionService = VideoDetectionService()
     }
 }
