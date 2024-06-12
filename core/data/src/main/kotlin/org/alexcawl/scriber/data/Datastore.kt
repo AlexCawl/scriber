@@ -1,3 +1,5 @@
+package org.alexcawl.scriber.data
+
 import androidx.datastore.core.DataMigration
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler

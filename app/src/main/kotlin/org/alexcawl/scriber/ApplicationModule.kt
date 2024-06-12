@@ -4,7 +4,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import dagger.Module
 import dagger.Provides
-import dataStorePreferences
+import org.alexcawl.scriber.data.dataStorePreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import org.alexcawl.scriber.mvi.core.Disposable
