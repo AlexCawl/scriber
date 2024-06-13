@@ -21,6 +21,8 @@ class VideoDetectionManager(
         val blurScale: Float = blurScalePropertyRepository.get().first()
         val threshold: Int = thresholdPropertyRepository.get().first()
         val inputVideoFile: File = videoFileRepository.get().first() ?: throw IllegalStateException("Input file not found!")
-        return detectionService.downloadMotionDetectedVideo(inputVideoFile, pathOut)
+        return runCatching {
+            detectionService.downloadMotionDetectedVideo(inputVideoFile, pathOut)
+        }
     }
 }

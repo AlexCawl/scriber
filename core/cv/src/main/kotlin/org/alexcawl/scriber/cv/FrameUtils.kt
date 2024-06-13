@@ -6,17 +6,15 @@ import org.bytedeco.javacv.FrameGrabber
 import org.bytedeco.javacv.FrameRecorder
 import java.io.File
 
-fun downloadVideo(grabber: FrameGrabber): Result<Sequence<Frame>> = runCatching {
-    sequence {
-        grabber.start()
-        while (true) {
-            yield(grabber.grabFrame() ?: break)
-        }
-        grabber.stop()
+fun downloadVideo(grabber: FrameGrabber): Sequence<Frame> = sequence {
+    grabber.start()
+    while (true) {
+        yield(grabber.grabFrame() ?: break)
     }
+    grabber.stop()
 }
 
-fun uploadVideo(recorder: FrameRecorder, frames: Sequence<Frame>): Result<Unit> = runCatching {
+fun uploadVideo(recorder: FrameRecorder, frames: Sequence<Frame>) {
     recorder.start()
     frames.forEach {
         recorder.record(it)

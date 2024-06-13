@@ -1,5 +1,5 @@
 plugins {
-    id("dagger-convention")
+    id("kotlin-convention")
 }
 
 dependencies {

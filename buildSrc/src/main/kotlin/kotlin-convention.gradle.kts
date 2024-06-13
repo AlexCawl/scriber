@@ -6,6 +6,7 @@ val libs = the<org.gradle.accessors.dm.LibrariesForLibs>()
 plugins {
     id("org.jetbrains.kotlin.jvm")
     id("org.jetbrains.kotlin.plugin.serialization")
+    id("com.google.devtools.ksp")
 }
 
 kotlin {
@@ -18,6 +19,8 @@ dependencies {
     implementation(libs.kotlin.serialization.json)
     testImplementation(libs.junit)
     testRuntimeOnly(libs.junit.engine)
+    implementation(libs.dagger)
+    ksp(libs.dagger.compiler)
 }
 
 tasks.test {

@@ -1,5 +1,3 @@
-import org.gradle.kotlin.dsl.the
-
 // Workaround: https://github.com/gradle/gradle/issues/15383
 val libs = the<org.gradle.accessors.dm.LibrariesForLibs>()
 
@@ -8,5 +6,6 @@ plugins {
 }
 
 dependencies {
-    api(libs.opencv)
+    api(libs.opencv) {
+    }
 }

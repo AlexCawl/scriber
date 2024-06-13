@@ -1,7 +1,6 @@
 plugins {
     id("kotlin-convention")
     id("compose-convention")
-    id("dagger-convention")
     id("opencv-convention")
     id("persistence-convention")
 }
