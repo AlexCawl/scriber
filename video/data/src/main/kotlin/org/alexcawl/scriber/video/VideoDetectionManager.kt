@@ -7,6 +7,8 @@ import org.alexcawl.configuration.ThresholdPropertyRepository
 import org.alexcawl.scriber.cv.VideoDetectionService
 import java.io.File
 
+private val pathOut = File("/home/mick/Downloads/output.mp4")
+
 class VideoDetectionManager(
     private val accuracyPropertyRepository: AccuracyPropertyRepository,
     private val blurScalePropertyRepository: BlurScalePropertyRepository,
@@ -19,6 +21,6 @@ class VideoDetectionManager(
         val blurScale: Float = blurScalePropertyRepository.get().first()
         val threshold: Int = thresholdPropertyRepository.get().first()
         val inputVideoFile: File = videoFileRepository.get().first() ?: throw IllegalStateException("Input file not found!")
-        return detectionService.downloadMotionDetectedVideo(inputVideoFile, outputVideoFile)
+        return detectionService.downloadMotionDetectedVideo(inputVideoFile, pathOut)
     }
 }

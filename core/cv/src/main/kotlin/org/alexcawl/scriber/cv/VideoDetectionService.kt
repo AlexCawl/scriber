@@ -33,9 +33,9 @@ class VideoDetectionService {
 
     fun downloadMotionDetectedVideo(originalVideo: File, detectedVideo: File): Result<Unit> = runCatching {
         FFmpegFrameGrabber(originalVideo).use { grabber: FrameGrabber ->
-            val frames: Sequence<Frame> = downloadVideo(grabber).mapCatching { detectMotion(it).getOrThrow() }.getOrThrow()
+            val frames: Sequence<Frame> = downloadVideo(grabber).getOrThrow()
             produceEqualRecorder(detectedVideo, grabber).use { recorder: FrameRecorder ->
-                uploadVideo(recorder, frames)
+                uploadVideo(recorder, detectMotion(frames).getOrThrow())
             }
         }
     }
