@@ -7,7 +7,6 @@ import dagger.multibindings.IntoMap
 import kotlinx.coroutines.CoroutineScope
 import org.alexcawl.scriber.mvi.core.Disposable
 import org.alexcawl.scriber.mvi.core.DisposableKey
-import javax.inject.Singleton
 
 @Module
 interface ConfigurationUiModule {
@@ -18,7 +17,6 @@ interface ConfigurationUiModule {
 
     companion object {
         @Provides
-        @Singleton
         fun provideConfigurationScreenStore(
             scope: CoroutineScope,
             getAccuracy: GetAccuracyUseCase,
