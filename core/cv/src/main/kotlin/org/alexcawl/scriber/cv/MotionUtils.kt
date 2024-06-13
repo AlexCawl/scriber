@@ -49,51 +49,6 @@ fun detectMotion(frames: Sequence<Frame>): Sequence<Frame> {
         }
 }
 
-@Suppress("DuplicatedCode")
-@Deprecated("Memory ineffective")
-fun detectMotion(grabber: FrameGrabber, recorder: FrameRecorder) {
-    grabber.start()
-    recorder.start()
-
-    var frame: Frame?
-    var currentFrame: Mat by Delegates.notNull()
-    var difference: Mat by Delegates.notNull()
-    var mask: Mat by Delegates.notNull()
-    var previousFrame: Mat by Delegates.notNull()
-    var isFirstFrame = true
-
-    while ((grabber.grab().also { frame = it }) != null) {
-        currentFrame = converter.convert(frame)
-        difference = Mat(currentFrame.size(), CV_8UC1) // Создаем Mat
-        cvtColor(currentFrame, difference, COLOR_BGR2GRAY) // Загружаем ч/б кадр
-        GaussianBlur(difference, difference, Size(3, 3), 0.0) // Размываем
-
-        when (isFirstFrame) {
-            true -> {
-                mask = difference
-                isFirstFrame = false
-            }
-
-            false -> {
-                subtract(difference, previousFrame, mask)
-                adaptiveThreshold(
-                    mask, mask, 255.0, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY_INV, 5, 2.0
-                )
-                detectionContours(mask, currentFrame).forEach {
-                    val scalar = Scalar(0.0, 255.0, 0.0, 0.0)
-                    rectangle(currentFrame, it.br(), it.tl(), scalar)
-                }
-            }
-        }
-        previousFrame = difference
-        recorder.record(converter.convert(currentFrame))
-    }
-
-    recorder.stop()
-    grabber.stop()
-    System.gc()
-}
-
 private fun detectionContours(mask: Mat, image: Mat): List<Rect> {
     val contours = MatVector()
     findContours(mask, contours, Mat(), RETR_LIST, CHAIN_APPROX_SIMPLE)

@@ -17,7 +17,7 @@ fun downloadVideo(grabber: FrameGrabber): Sequence<Frame> = sequence {
 fun uploadVideo(recorder: FrameRecorder, frames: Sequence<Frame>) {
     recorder.start()
     frames.forEach {
-        recorder.record(it)
+        it.use(recorder::record)
     }
     recorder.stop()
 }
