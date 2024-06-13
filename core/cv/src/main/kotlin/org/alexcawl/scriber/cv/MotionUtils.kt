@@ -1,57 +1,102 @@
 package org.alexcawl.scriber.cv
 
 import org.bytedeco.javacv.Frame
+import org.bytedeco.javacv.FrameGrabber
+import org.bytedeco.javacv.FrameRecorder
 import org.bytedeco.javacv.OpenCVFrameConverter
 import org.bytedeco.opencv.global.opencv_core.CV_8UC1
 import org.bytedeco.opencv.global.opencv_core.subtract
 import org.bytedeco.opencv.global.opencv_imgproc.*
 import org.bytedeco.opencv.opencv_core.*
+import kotlin.properties.Delegates
 
 private val converter: OpenCVFrameConverter.ToMat = OpenCVFrameConverter.ToMat()
 
-fun detectMotion(frames: Sequence<Frame>): Sequence<Frame> = sequence {
-    var detectedImage: Mat
-    var outerBox: Mat
-    var differenceFrame: Mat? = null
-    var bwFrame: Mat? = null
+fun detectMotion(frames: Sequence<Frame>): Sequence<Frame> {
+    var difference: Mat by Delegates.notNull()
+    var mask: Mat by Delegates.notNull()
+    var previousFrame: Mat by Delegates.notNull()
     var isFirstFrame = true
 
-    frames.map(converter::convert).forEach { currentFrame ->
-        detectedImage = currentFrame
-        outerBox = Mat(currentFrame.size(), CV_8UC1)
-        cvtColor(currentFrame, outerBox, COLOR_BGR2GRAY)
-        GaussianBlur(outerBox, outerBox, Size(3, 3), 0.0)
+    return frames
+        .map(converter::convert)
+        .map { currentFrame ->
+            difference = Mat(currentFrame.size(), CV_8UC1) // Создаем Mat
+            cvtColor(currentFrame, difference, COLOR_BGR2GRAY) // Загружаем ч/б кадр
+            GaussianBlur(difference, difference, Size(3, 3), 0.0) // Размываем
+
+            when (isFirstFrame) {
+                true -> {
+                    mask = difference
+                    isFirstFrame = false
+                }
+
+                false -> {
+                    subtract(difference, previousFrame, mask)
+                    adaptiveThreshold(
+                        mask, mask, 255.0, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY_INV, 5, 2.0
+                    )
+                    detectionContours(mask, currentFrame).forEach {
+                        val scalar = Scalar(0.0, 255.0, 0.0, 0.0)
+                        rectangle(currentFrame, it.br(), it.tl(), scalar)
+                    }
+                }
+            }
+            previousFrame = difference
+            converter.convert(currentFrame)
+        }.also {
+            System.gc()
+        }
+}
+
+@Suppress("DuplicatedCode")
+@Deprecated("Memory ineffective")
+fun detectMotion(grabber: FrameGrabber, recorder: FrameRecorder) {
+    grabber.start()
+    recorder.start()
+
+    var frame: Frame?
+    var currentFrame: Mat by Delegates.notNull()
+    var difference: Mat by Delegates.notNull()
+    var mask: Mat by Delegates.notNull()
+    var previousFrame: Mat by Delegates.notNull()
+    var isFirstFrame = true
+
+    while ((grabber.grab().also { frame = it }) != null) {
+        currentFrame = converter.convert(frame)
+        difference = Mat(currentFrame.size(), CV_8UC1) // Создаем Mat
+        cvtColor(currentFrame, difference, COLOR_BGR2GRAY) // Загружаем ч/б кадр
+        GaussianBlur(difference, difference, Size(3, 3), 0.0) // Размываем
 
         when (isFirstFrame) {
             true -> {
-                bwFrame = Mat(outerBox.size(), CV_8UC1)
-                differenceFrame = outerBox
+                mask = difference
                 isFirstFrame = false
             }
 
             false -> {
-                subtract(outerBox, bwFrame, differenceFrame)
+                subtract(difference, previousFrame, mask)
                 adaptiveThreshold(
-                    differenceFrame, differenceFrame, 255.0,
-                    ADAPTIVE_THRESH_MEAN_C,
-                    THRESH_BINARY_INV, 5, 2.0
+                    mask, mask, 255.0, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY_INV, 5, 2.0
                 )
-                detectionContours(differenceFrame!!, detectedImage).forEach {
+                detectionContours(mask, currentFrame).forEach {
                     val scalar = Scalar(0.0, 255.0, 0.0, 0.0)
-                    rectangle(detectedImage, it.br(), it.tl(), scalar)
+                    rectangle(currentFrame, it.br(), it.tl(), scalar)
                 }
             }
         }
-        bwFrame = outerBox
-        yield(converter.convert(detectedImage))
+        previousFrame = difference
+        recorder.record(converter.convert(currentFrame))
     }
+
+    recorder.stop()
+    grabber.stop()
+    System.gc()
 }
 
-private fun detectionContours(frame: Mat, destination: Mat): List<Rect> {
-    val v: Mat = Mat()
-    val vv: Mat = frame.clone()
+private fun detectionContours(mask: Mat, image: Mat): List<Rect> {
     val contours = MatVector()
-    findContours(vv, contours, v, RETR_LIST, CHAIN_APPROX_SIMPLE)
+    findContours(mask, contours, Mat(), RETR_LIST, CHAIN_APPROX_SIMPLE)
 
     val maxArea = 100.0
     var rectangle: Rect
@@ -63,11 +108,9 @@ private fun detectionContours(frame: Mat, destination: Mat): List<Rect> {
         if (area > maxArea) {
             rectangle = boundingRect(contours[index])
             rectangleList.add(rectangle)
-            drawContours(destination, contours, index.toInt(), Scalar(0.0, 0.0, 255.0, 0.0))
+            drawContours(image, contours, index.toInt(), Scalar(0.0, 0.0, 255.0, 0.0))
         }
         contour.release()
     }
-    v.release()
-    vv.release()
     return rectangleList
 }
