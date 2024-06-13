@@ -1,9 +1,5 @@
-package org.alexcawl.scriber.video
+package org.alexcawl.scriber.cv
 
-import org.alexcawl.scriber.cv.detectMotion
-import org.alexcawl.scriber.cv.downloadVideo
-import org.alexcawl.scriber.cv.produceEqualRecorder
-import org.alexcawl.scriber.cv.uploadVideo
 import org.bytedeco.javacv.FFmpegFrameGrabber
 import org.bytedeco.javacv.Frame
 import org.bytedeco.javacv.FrameGrabber

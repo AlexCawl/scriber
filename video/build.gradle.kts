@@ -11,4 +11,8 @@ dependencies {
     implementation(project(":video:ui"))
     implementation(project(":video:domain"))
     implementation(project(":video:data"))
+
+    implementation(project(":configuration:ui"))
+    implementation(project(":configuration:domain"))
+    implementation(project(":configuration:data"))
 }

@@ -14,5 +14,9 @@ interface VideoDomainModule {
         @Provides
         @Singleton
         fun provideSetVideoFileUseCase(repository: VideoFileRepository) = SetVideoFileUseCase(repository)
+
+        @Provides
+        @Singleton
+        fun provideDetectVideoFileUseCase(manager: VideoDetectionManager) = DetectVideoUseCase(manager)
     }
 }

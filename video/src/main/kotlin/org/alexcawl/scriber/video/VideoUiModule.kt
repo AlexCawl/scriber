@@ -22,7 +22,8 @@ internal interface VideoUiModule {
         fun provideVideoScreenStore(
             scope: CoroutineScope,
             getFileUseCase: GetVideoFileUseCase,
-            setFileUseCase: SetVideoFileUseCase
-        ): VideoScreenStore = VideoScreenStore(scope, getFileUseCase, setFileUseCase)
+            setFileUseCase: SetVideoFileUseCase,
+            detectVideoUseCase: DetectVideoUseCase
+        ): VideoScreenStore = VideoScreenStore(scope, getFileUseCase, setFileUseCase, detectVideoUseCase)
     }
 }

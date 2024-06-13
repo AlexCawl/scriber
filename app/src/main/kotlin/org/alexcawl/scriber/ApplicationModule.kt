@@ -8,8 +8,10 @@ import dagger.Provides
 import dagger.multibindings.IntoMap
 import org.alexcawl.scriber.data.dataStorePreferences
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import org.alexcawl.configuration.ConfigurationModule
+import org.alexcawl.scriber.cv.VideoDetectionService
 import org.alexcawl.scriber.data.ThemeRepository
 import org.alexcawl.scriber.mvi.core.Disposable
 import org.alexcawl.scriber.mvi.core.DisposableKey
@@ -34,6 +36,7 @@ interface ApplicationModule {
 
     companion object {
         @Provides
+        @Singleton
         fun provideFactory(creators: @JvmSuppressWildcards Map<Class<out Disposable>, Provider<Disposable>>): Disposable.Factory =
             object : StoreFactory(creators) {}
 
@@ -46,12 +49,23 @@ interface ApplicationModule {
         )
 
         @Provides
+        @Singleton
         fun provideNavigationStore(scope: CoroutineScope) = NavigationStore(scope)
 
         @Provides
+        @Singleton
         fun provideApplicationStore(scope: CoroutineScope, navigationStore: NavigationStore, themeRepository: ThemeRepository) = ApplicationStore(scope, navigationStore, themeRepository)
 
         @Provides
+        @Singleton
         fun provideThemeRepository(dataStore: DataStore<Preferences>) = ThemeRepository(dataStore)
+
+        @Provides
+        @Singleton
+        fun provideVideoDetectionService() = VideoDetectionService()
+
+        @Provides
+        @Singleton
+        fun provideModuleScope(): CoroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
     }
 }

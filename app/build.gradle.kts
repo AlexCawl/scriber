@@ -17,6 +17,7 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
     implementation(project(":core:mvi"))
+    implementation(project(":core:cv"))
     implementation(project(":core:data"))
     implementation(project(":configuration"))
     implementation(project(":configuration:ui"))
