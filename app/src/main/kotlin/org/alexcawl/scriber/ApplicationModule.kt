@@ -6,13 +6,13 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
-import org.alexcawl.scriber.data.dataStorePreferences
+import org.alexcawl.scriber.data.api.dataStorePreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import org.alexcawl.configuration.ConfigurationModule
 import org.alexcawl.scriber.cv.VideoDetectionManager
-import org.alexcawl.scriber.data.ThemeRepository
+import org.alexcawl.scriber.data.theme.ThemeRepository
 import org.alexcawl.scriber.mvi.core.Disposable
 import org.alexcawl.scriber.mvi.core.DisposableKey
 import org.alexcawl.scriber.mvi.core.StoreFactory

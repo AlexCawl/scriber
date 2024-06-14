@@ -39,7 +39,6 @@ include(":video:data")
 include(":configuration")
 include(":configuration:ui")
 include(":configuration:domain")
-include(":configuration:data")
 
 // :player
 include(":player:api")

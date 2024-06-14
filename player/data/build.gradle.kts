@@ -8,6 +8,5 @@ dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:cv"))
 
-    implementation(project(":configuration:data"))
     implementation(project(":video:data"))
 }

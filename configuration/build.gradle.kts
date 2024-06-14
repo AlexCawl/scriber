@@ -14,5 +14,4 @@ dependencies {
 
     implementation(project(":configuration:ui"))
     implementation(project(":configuration:domain"))
-    implementation(project(":configuration:data"))
 }

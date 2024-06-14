@@ -21,7 +21,6 @@ dependencies {
     implementation(project(":configuration"))
     implementation(project(":configuration:ui"))
     implementation(project(":configuration:domain"))
-    implementation(project(":configuration:data"))
     implementation(project(":video"))
     implementation(project(":video:ui"))
     implementation(project(":video:domain"))

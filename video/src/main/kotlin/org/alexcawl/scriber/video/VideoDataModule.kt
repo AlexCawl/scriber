@@ -2,10 +2,10 @@ package org.alexcawl.scriber.video
 
 import dagger.Module
 import dagger.Provides
-import org.alexcawl.configuration.AccuracyPropertyRepository
-import org.alexcawl.configuration.BlurScalePropertyRepository
-import org.alexcawl.configuration.ThresholdPropertyRepository
 import org.alexcawl.scriber.cv.VideoDetectionManager
+import org.alexcawl.scriber.data.configuration.AccuracyPropertyRepository
+import org.alexcawl.scriber.data.configuration.BlurScalePropertyRepository
+import org.alexcawl.scriber.data.configuration.ThresholdPropertyRepository
 import javax.inject.Singleton
 
 @Module

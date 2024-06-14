@@ -1,10 +1,10 @@
 package org.alexcawl.scriber.video
 
 import kotlinx.coroutines.flow.first
-import org.alexcawl.configuration.AccuracyPropertyRepository
-import org.alexcawl.configuration.BlurScalePropertyRepository
-import org.alexcawl.configuration.ThresholdPropertyRepository
 import org.alexcawl.scriber.cv.VideoDetectionManager
+import org.alexcawl.scriber.data.configuration.AccuracyPropertyRepository
+import org.alexcawl.scriber.data.configuration.BlurScalePropertyRepository
+import org.alexcawl.scriber.data.configuration.ThresholdPropertyRepository
 import java.io.File
 
 class VideoDetectionService(

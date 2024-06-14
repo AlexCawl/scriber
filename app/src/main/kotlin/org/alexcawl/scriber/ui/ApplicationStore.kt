@@ -1,7 +1,7 @@
 package org.alexcawl.scriber.ui
 
 import kotlinx.coroutines.CoroutineScope
-import org.alexcawl.scriber.data.ThemeRepository
+import org.alexcawl.scriber.data.theme.ThemeRepository
 import org.alexcawl.scriber.mvi.core.Store
 import org.alexcawl.scriber.ui.navigation.NavigationAction
 import org.alexcawl.scriber.ui.navigation.NavigationState

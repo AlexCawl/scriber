@@ -7,6 +7,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:mvi"))
     implementation(project(":core:cv"))
+    implementation(project(":core:data"))
 
     implementation(project(":video:ui"))
     implementation(project(":video:domain"))
@@ -14,5 +15,4 @@ dependencies {
 
     implementation(project(":configuration:ui"))
     implementation(project(":configuration:domain"))
-    implementation(project(":configuration:data"))
 }

@@ -1,4 +1,4 @@
-package org.alexcawl.scriber.data
+package org.alexcawl.scriber.data.api
 
 import androidx.datastore.core.DataMigration
 import androidx.datastore.core.DataStore

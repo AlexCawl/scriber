@@ -1,4 +1,4 @@
-package org.alexcawl.configuration
+package org.alexcawl.scriber.data.configuration
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

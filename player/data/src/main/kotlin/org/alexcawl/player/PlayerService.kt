@@ -3,7 +3,7 @@ package org.alexcawl.player
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.alexcawl.common.Source
-import org.alexcawl.configuration.SourcePropertyRepository
+import org.alexcawl.scriber.data.configuration.SourcePropertyRepository
 import org.alexcawl.scriber.video.VideoDetectionService
 
 class PlayerService(

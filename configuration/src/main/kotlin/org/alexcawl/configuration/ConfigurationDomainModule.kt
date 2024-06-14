@@ -2,6 +2,9 @@ package org.alexcawl.configuration
 
 import dagger.Module
 import dagger.Provides
+import org.alexcawl.scriber.data.configuration.AccuracyPropertyRepository
+import org.alexcawl.scriber.data.configuration.BlurScalePropertyRepository
+import org.alexcawl.scriber.data.configuration.ThresholdPropertyRepository
 import javax.inject.Singleton
 
 @Module
