@@ -7,16 +7,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Download
-import androidx.compose.material.icons.filled.FileDownload
 import androidx.compose.material.icons.filled.PlayArrow
-import androidx.compose.material.icons.filled.VideoFile
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Window
 import org.alexcawl.configuration.ConfigurationScreen
 import org.alexcawl.scriber.mvi.compose.StoreScope
 import org.alexcawl.scriber.ui.component.input.ToggleFileInputField
@@ -49,7 +45,7 @@ internal fun VideoScreenContent(
         ) {
             when (state) {
                 VideoScreenState.Initial -> Text(text = "File not selected!")
-                is VideoScreenState.Setup -> {
+                is VideoScreenState.State -> {
                     Text(text = state.videoFile.name)
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -65,7 +61,7 @@ internal fun VideoScreenContent(
                             }
                         ) {
                             IconButton(
-                                onClick = { event(VideoScreenAction.ShowDifference) }
+                                onClick = { event(VideoScreenAction.ToggleVideoPlayer) }
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.PlayArrow,
@@ -114,5 +110,11 @@ internal fun VideoScreenContent(
             )
         }
         ConfigurationScreen(modifier = Modifier.fillMaxWidth())
+    }
+
+    if (state.playerOpened) {
+        Window(onCloseRequest = { event(VideoScreenAction.ToggleVideoPlayer) }) {
+            Text(text = "Video opened!")
+        }
     }
 }

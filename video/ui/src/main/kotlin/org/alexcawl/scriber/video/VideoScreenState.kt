@@ -5,9 +5,17 @@ import java.io.File
 
 @Immutable
 sealed interface VideoScreenState {
-    @Immutable
-    data object Initial : VideoScreenState
+    val videoFile: File?
+    val playerOpened: Boolean
 
     @Immutable
-    data class Setup(val videoFile: File) : VideoScreenState
+    data object Initial : VideoScreenState {
+        override val videoFile: File?
+            get() = null
+        override val playerOpened: Boolean
+            get() = false
+    }
+
+    @Immutable
+    data class State(override val videoFile: File, override val playerOpened: Boolean) : VideoScreenState
 }
