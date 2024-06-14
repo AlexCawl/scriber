@@ -2,6 +2,7 @@ package org.alexcawl.scriber.video
 
 import dagger.Module
 import dagger.Provides
+import org.alexcawl.scriber.data.video.VideoFileRepository
 import javax.inject.Singleton
 
 @Module

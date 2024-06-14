@@ -1,8 +1,7 @@
-package org.alexcawl.scriber.cv
+package org.alexcawl.scriber.cv.utils
 
+import org.alexcawl.common.DetectionParameters
 import org.bytedeco.javacv.Frame
-import org.bytedeco.javacv.FrameGrabber
-import org.bytedeco.javacv.FrameRecorder
 import org.bytedeco.javacv.OpenCVFrameConverter
 import org.bytedeco.opencv.global.opencv_core.CV_8UC1
 import org.bytedeco.opencv.global.opencv_core.subtract
@@ -12,7 +11,7 @@ import kotlin.properties.Delegates
 
 private val converter: OpenCVFrameConverter.ToMat = OpenCVFrameConverter.ToMat()
 
-fun detectMotion(frames: Sequence<Frame>): Sequence<Frame> {
+fun detectMotion(frames: Sequence<Frame>, detectionParameters: DetectionParameters = DetectionParameters(1f, 3.0f, 1)): Sequence<Frame> {
     var difference: Mat by Delegates.notNull()
     var mask: Mat by Delegates.notNull()
     var previousFrame: Mat by Delegates.notNull()

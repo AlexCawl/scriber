@@ -1,4 +1,4 @@
-package org.alexcawl.scriber.cv
+package org.alexcawl.scriber.cv.utils
 
 import org.bytedeco.javacv.FFmpegFrameRecorder
 import org.bytedeco.javacv.Frame

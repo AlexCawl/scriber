@@ -1,4 +1,4 @@
-package org.alexcawl.scriber.video
+package org.alexcawl.scriber.data.video
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

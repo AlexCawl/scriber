@@ -6,6 +6,7 @@ import org.alexcawl.scriber.cv.VideoDetectionManager
 import org.alexcawl.scriber.data.configuration.AccuracyPropertyRepository
 import org.alexcawl.scriber.data.configuration.BlurScalePropertyRepository
 import org.alexcawl.scriber.data.configuration.ThresholdPropertyRepository
+import org.alexcawl.scriber.data.video.VideoFileRepository
 import javax.inject.Singleton
 
 @Module
