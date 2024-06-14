@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.FileDownload
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.VideoFile
@@ -63,15 +64,7 @@ internal fun VideoScreenContent(
                             onClick = { event(VideoScreenAction.DownloadVideo) }
                         ) {
                             Icon(
-                                imageVector = Icons.Default.VideoFile,
-                                contentDescription = null
-                            )
-                        }
-                        IconButton(
-                            onClick = { event(VideoScreenAction.DownloadLogs) }
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.FileDownload,
+                                imageVector = Icons.Default.Download,
                                 contentDescription = null
                             )
                         }
@@ -91,7 +84,6 @@ internal fun VideoScreenContent(
             isSingleSelection = true,
             consume = { event(VideoScreenAction.SelectVideoFile(it)) },
             modifier = Modifier
-                .background(Color.LightGray, shape = MaterialTheme.shapes.large)
                 .padding(16.dp)
                 .height(64.dp)
         )
