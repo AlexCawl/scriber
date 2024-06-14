@@ -8,9 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material.icons.rounded.Restore
-import androidx.compose.material.icons.rounded.Stop
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -36,23 +34,14 @@ private fun PlayerScreenContent(
 ) = Column(modifier) {
     when (val image = state.image) {
         null -> Unit
-        else -> Image(bitmap = image, contentDescription = null)
+        else -> Image(bitmap = image, contentDescription = null, modifier = Modifier.fillMaxWidth())
     }
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-        Button(onClick = { event(PlayerScreenAction.Toggle)} ) {
-            Icon(
-                imageVector = when (state.isPlaying) {
-                    true -> Icons.Rounded.Stop
-                    false -> Icons.Rounded.PlayArrow
-                },
-                contentDescription = null
-            )
-        }
-        Button(onClick = { event(PlayerScreenAction.Toggle)} ) {
+        Button(onClick = { event(PlayerScreenAction.Restart) } ) {
             Icon(
                 imageVector = Icons.Rounded.Restore,
                 contentDescription = null

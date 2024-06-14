@@ -13,18 +13,26 @@ dependencies {
     // (in a separate module for demo project and in testMain).
     // With compose.desktop.common you will also lose @Preview functionality
     implementation(compose.desktop.currentOs)
+
     implementation(project(":core:common"))
     implementation(project(":core:ui"))
     implementation(project(":core:mvi"))
     implementation(project(":core:cv"))
     implementation(project(":core:data"))
+
     implementation(project(":configuration"))
     implementation(project(":configuration:ui"))
     implementation(project(":configuration:domain"))
+
     implementation(project(":video"))
     implementation(project(":video:ui"))
     implementation(project(":video:domain"))
     implementation(project(":video:data"))
+
+    implementation(project(":player:api"))
+    implementation(project(":player:ui"))
+    implementation(project(":player:domain"))
+    implementation(project(":player:data"))
 }
 
 compose.desktop {

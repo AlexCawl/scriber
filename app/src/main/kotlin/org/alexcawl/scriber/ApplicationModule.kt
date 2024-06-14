@@ -6,12 +6,17 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
-import org.alexcawl.scriber.data.api.dataStorePreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import org.alexcawl.configuration.ConfigurationModule
+import org.alexcawl.player.PlayerModule
 import org.alexcawl.scriber.cv.VideoDetectionManager
+import org.alexcawl.scriber.data.api.dataStorePreferences
+import org.alexcawl.scriber.data.configuration.AccuracyPropertyRepository
+import org.alexcawl.scriber.data.configuration.BlurScalePropertyRepository
+import org.alexcawl.scriber.data.configuration.DetectionParametersRepository
+import org.alexcawl.scriber.data.configuration.ThresholdPropertyRepository
 import org.alexcawl.scriber.data.theme.ThemeRepository
 import org.alexcawl.scriber.mvi.core.Disposable
 import org.alexcawl.scriber.mvi.core.DisposableKey
@@ -22,7 +27,7 @@ import org.alexcawl.scriber.video.VideoModule
 import javax.inject.Provider
 import javax.inject.Singleton
 
-@Module(includes = [VideoModule::class, ConfigurationModule::class])
+@Module(includes = [VideoModule::class, ConfigurationModule::class, PlayerModule::class])
 interface ApplicationModule {
     @Binds
     @IntoMap
@@ -54,7 +59,11 @@ interface ApplicationModule {
 
         @Provides
         @Singleton
-        fun provideApplicationStore(scope: CoroutineScope, navigationStore: NavigationStore, themeRepository: ThemeRepository) = ApplicationStore(scope, navigationStore, themeRepository)
+        fun provideApplicationStore(
+            scope: CoroutineScope,
+            navigationStore: NavigationStore,
+            themeRepository: ThemeRepository
+        ) = ApplicationStore(scope, navigationStore, themeRepository)
 
         @Provides
         @Singleton
@@ -67,5 +76,17 @@ interface ApplicationModule {
         @Provides
         @Singleton
         fun provideModuleScope(): CoroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob())
+
+        @Provides
+        @Singleton
+        fun provideDetectionParamsRepository(
+            accuracyPropertyRepository: AccuracyPropertyRepository,
+            blurScalePropertyRepository: BlurScalePropertyRepository,
+            thresholdPropertyRepository: ThresholdPropertyRepository,
+        ) = DetectionParametersRepository(
+            accuracyPropertyRepository,
+            blurScalePropertyRepository,
+            thresholdPropertyRepository
+        )
     }
 }

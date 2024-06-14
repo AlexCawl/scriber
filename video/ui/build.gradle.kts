@@ -9,4 +9,5 @@ dependencies {
     implementation(project(":core:mvi"))
     implementation(project(":video:domain"))
     implementation(project(":configuration:ui"))
+    implementation(project(":player:ui"))
 }
