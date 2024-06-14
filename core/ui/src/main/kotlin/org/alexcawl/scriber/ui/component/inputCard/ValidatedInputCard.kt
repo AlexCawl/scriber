@@ -1,9 +1,6 @@
 package org.alexcawl.scriber.ui.component.inputCard
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -23,17 +20,18 @@ fun <T> ValidatedInputCard(
     label: @Composable () -> Unit = {},
     errorLabel: @Composable () -> Unit = {}
 ) = Card(modifier = modifier) {
-    var text: String by remember { mutableStateOf(valueMapper(initialValue)) }
+    val initialText: String = valueMapper(initialValue)
+    var text: String by remember { mutableStateOf(initialText) }
     var isError: Boolean by remember { mutableStateOf(false) }
 
     LaunchedEffect(initialValue) {
-        text = valueMapper(initialValue)
+        text = initialText
     }
 
     Row(
-        modifier = Modifier.fillMaxWidth().padding(8.dp),
+        modifier = Modifier.fillMaxWidth().padding(16.dp),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         TextField(
             value = text,
@@ -56,7 +54,8 @@ fun <T> ValidatedInputCard(
                     isError = true
                 }
             },
-            modifier = Modifier.weight(1f)
+            enabled = text != initialText,
+            modifier = Modifier.height(IntrinsicSize.Min)
         ) {
             Text("Submit")
         }

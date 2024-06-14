@@ -43,7 +43,7 @@ internal fun VideoScreenContent(
     modifier = modifier,
     topBar = {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().height(64.dp).background(MaterialTheme.colors.surface).padding(16.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -99,18 +99,20 @@ internal fun VideoScreenContent(
     }
 ) { padding: PaddingValues ->
     Column(
-        modifier = Modifier.fillMaxSize().padding(padding),
-        verticalArrangement = Arrangement.Top,
+        modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
         horizontalAlignment = Alignment.Start
     ) {
-        ToggleFileInputField(
-            title = "Select file:",
-            isSingleSelection = true,
-            consume = { event(VideoScreenAction.SelectVideoFile(it)) },
-            modifier = Modifier
-                .padding(16.dp)
-                .height(64.dp)
-        )
+        Card {
+            ToggleFileInputField(
+                title = "Select file:",
+                isSingleSelection = true,
+                consume = { event(VideoScreenAction.SelectVideoFile(it)) },
+                modifier = Modifier
+                    .padding(16.dp)
+                    .height(64.dp)
+            )
+        }
         ConfigurationScreen(modifier = Modifier.fillMaxWidth())
     }
 }

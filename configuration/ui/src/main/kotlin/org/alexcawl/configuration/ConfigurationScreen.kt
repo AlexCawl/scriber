@@ -1,7 +1,9 @@
 package org.alexcawl.configuration
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -37,7 +39,7 @@ private fun ConfigurationScreenContent(
     event: (ConfigurationScreenAction) -> Unit,
     modifier: Modifier = Modifier
 ) = Column(
-    modifier = modifier,
+    modifier = modifier.background(MaterialTheme.colors.background),
     verticalArrangement = Arrangement.spacedBy(32.dp, Alignment.Top),
     horizontalAlignment = Alignment.Start
 ) {
@@ -46,18 +48,23 @@ private fun ConfigurationScreenContent(
         valueMapper = floatValueMapper,
         valueValidator = floatValueValidator,
         onValueSubmit = { event(ConfigurationScreenAction.SetAccuracy(it)) },
-        label = { Text("accuracy") }
+        label = { Text("Accuracy") },
+        errorLabel = { Text("Invalid value format!") }
     )
     ValidatedInputCard(
         initialValue = state.blurScale,
         valueMapper = floatValueMapper,
         valueValidator = floatValueValidator,
-        onValueSubmit = { event(ConfigurationScreenAction.SetBlurScale(it)) }
+        onValueSubmit = { event(ConfigurationScreenAction.SetBlurScale(it)) },
+        label = { Text("Blur scale") },
+        errorLabel = { Text("Invalid value format!") },
     )
     ValidatedInputCard(
         initialValue = state.threshold,
         valueMapper = intValueMapper,
         valueValidator = intValueValidator,
-        onValueSubmit = { event(ConfigurationScreenAction.SetThreshold(it)) }
+        onValueSubmit = { event(ConfigurationScreenAction.SetThreshold(it)) },
+        label = { Text("Threshold") },
+        errorLabel = { Text("Invalid value format!") },
     )
 }
