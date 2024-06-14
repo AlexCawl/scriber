@@ -1,0 +1,18 @@
+plugins {
+    id("kotlin-convention")
+    id("compose-convention")
+    id("opencv-convention")
+    id("persistence-convention")
+}
+
+dependencies {
+    implementation(project(":core:ui"))
+    implementation(project(":core:common"))
+    implementation(project(":core:data"))
+    implementation(project(":core:mvi"))
+    implementation(project(":core:cv"))
+
+    implementation(project(":player:ui"))
+    implementation(project(":player:domain"))
+    implementation(project(":player:data"))
+}

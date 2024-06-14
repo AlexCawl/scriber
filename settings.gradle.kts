@@ -40,3 +40,9 @@ include(":configuration")
 include(":configuration:ui")
 include(":configuration:domain")
 include(":configuration:data")
+
+// :player
+include(":player:api")
+include(":player:ui")
+include(":player:domain")
+include(":player:data")

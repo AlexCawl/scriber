@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import org.alexcawl.configuration.ConfigurationModule
-import org.alexcawl.scriber.cv.VideoDetectionService
+import org.alexcawl.scriber.cv.VideoDetectionManager
 import org.alexcawl.scriber.data.ThemeRepository
 import org.alexcawl.scriber.mvi.core.Disposable
 import org.alexcawl.scriber.mvi.core.DisposableKey
@@ -62,7 +62,7 @@ interface ApplicationModule {
 
         @Provides
         @Singleton
-        fun provideVideoDetectionService() = VideoDetectionService()
+        fun provideVideoDetectionService() = VideoDetectionManager()
 
         @Provides
         @Singleton

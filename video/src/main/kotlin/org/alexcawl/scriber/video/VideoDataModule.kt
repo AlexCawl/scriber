@@ -5,7 +5,7 @@ import dagger.Provides
 import org.alexcawl.configuration.AccuracyPropertyRepository
 import org.alexcawl.configuration.BlurScalePropertyRepository
 import org.alexcawl.configuration.ThresholdPropertyRepository
-import org.alexcawl.scriber.cv.VideoDetectionService
+import org.alexcawl.scriber.cv.VideoDetectionManager
 import javax.inject.Singleton
 
 @Module
@@ -22,8 +22,8 @@ interface VideoDataModule {
             blurScalePropertyRepository: BlurScalePropertyRepository,
             thresholdPropertyRepository: ThresholdPropertyRepository,
             videoFileRepository: VideoFileRepository,
-            videoDetectionService: VideoDetectionService
-        ) = VideoDetectionManager(
+            videoDetectionService: VideoDetectionManager
+        ) = VideoDetectionService(
             accuracyPropertyRepository,
             blurScalePropertyRepository,
             thresholdPropertyRepository,

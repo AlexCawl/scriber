@@ -9,7 +9,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import javax.imageio.ImageIO
 
-class VideoDetectionService {
+class VideoDetectionManager {
     fun getMotionDetectedVideo(originalVideo: File): Sequence<ByteArray> =
         FFmpegFrameGrabber(originalVideo).use { grabber: FrameGrabber ->
             val frames: Sequence<Frame> = downloadVideo(grabber)
