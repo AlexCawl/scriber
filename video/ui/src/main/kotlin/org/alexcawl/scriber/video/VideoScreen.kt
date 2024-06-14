@@ -1,5 +1,7 @@
 package org.alexcawl.scriber.video
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.TooltipArea
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -31,6 +33,7 @@ fun VideoScreen(
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun VideoScreenContent(
     state: VideoScreenState,
@@ -52,21 +55,42 @@ internal fun VideoScreenContent(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally)
                     ) {
-                        IconButton(
-                            onClick = { event(VideoScreenAction.ShowDifference) }
+                        TooltipArea(
+                            tooltip = {
+                                Text(
+                                    text = "Show motion detected video",
+                                    color = MaterialTheme.colors.onBackground,
+                                    modifier = Modifier.background(MaterialTheme.colors.background, MaterialTheme.shapes.small).padding(4.dp)
+                                )
+                            }
                         ) {
-                            Icon(
-                                imageVector = Icons.Default.PlayArrow,
-                                contentDescription = null
-                            )
+                            IconButton(
+                                onClick = { event(VideoScreenAction.ShowDifference) }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.PlayArrow,
+                                    contentDescription = null
+                                )
+                            }
                         }
-                        IconButton(
-                            onClick = { event(VideoScreenAction.DownloadVideo) }
+
+                        TooltipArea(
+                            tooltip = {
+                                Text(
+                                    text = "Download motion detected video",
+                                    color = MaterialTheme.colors.onBackground,
+                                    modifier = Modifier.background(MaterialTheme.colors.background, MaterialTheme.shapes.small).padding(4.dp)
+                                )
+                            }
                         ) {
-                            Icon(
-                                imageVector = Icons.Default.Download,
-                                contentDescription = null
-                            )
+                            IconButton(
+                                onClick = { event(VideoScreenAction.DownloadVideo) }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Download,
+                                    contentDescription = null
+                                )
+                            }
                         }
                     }
                 }
