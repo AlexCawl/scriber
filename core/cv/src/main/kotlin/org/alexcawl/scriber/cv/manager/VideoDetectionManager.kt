@@ -1,6 +1,7 @@
-package org.alexcawl.scriber.cv
+package org.alexcawl.scriber.cv.manager
 
 import org.alexcawl.common.DetectionParameters
+import org.alexcawl.scriber.cv.OpenCvDetector
 import org.alexcawl.scriber.cv.utils.downloadVideo
 import org.alexcawl.scriber.cv.utils.produceEqualRecorder
 import org.alexcawl.scriber.cv.utils.uploadVideo
@@ -18,7 +19,7 @@ class VideoDetectionManager(
     private val detectionParameters: DetectionParameters
 ) {
     fun getMotionDetectedVideo(): Sequence<ByteArray> {
-        val detector = VideoDetector(detectionParameters)
+        val detector = OpenCvDetector(detectionParameters)
         return FFmpegFrameGrabber(videoFile).use { grabber: FrameGrabber ->
             val frames: Sequence<Frame> = downloadVideo(grabber)
             detector.detect(frames).map {
@@ -30,7 +31,7 @@ class VideoDetectionManager(
     }
 
     fun loadMotionDetectedVideo(suffix: String) {
-        val detector = VideoDetector(detectionParameters)
+        val detector = OpenCvDetector(detectionParameters)
         FFmpegFrameGrabber(videoFile).use { grabber: FrameGrabber ->
             val frames: Sequence<Frame> = downloadVideo(grabber)
             val outputVideoFile: File = videoFile.getOutput(suffix)

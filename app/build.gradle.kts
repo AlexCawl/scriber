@@ -23,6 +23,10 @@ dependencies {
     implementation(project(":video:ui"))
     implementation(project(":video:domain"))
     implementation(project(":video:data"))
+
+    implementation(project(":camera:ui"))
+    implementation(project(":camera:domain"))
+    implementation(project(":camera:data"))
 }
 
 compose.desktop {

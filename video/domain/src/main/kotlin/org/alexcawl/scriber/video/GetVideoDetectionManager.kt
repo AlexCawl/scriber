@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
 import org.alexcawl.common.GetUseCase
-import org.alexcawl.scriber.cv.VideoDetectionManager
+import org.alexcawl.scriber.cv.manager.VideoDetectionManager
 import org.alexcawl.scriber.data.configuration.DetectionParametersRepository
 import javax.inject.Inject
 
