@@ -3,6 +3,7 @@ package org.alexcawl.scriber
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
+import org.alexcawl.scriber.camera.di.CameraComponentStore
 import org.alexcawl.scriber.di.ApplicationComponentStore
 import org.alexcawl.scriber.di.DaggerApplicationComponent
 import org.alexcawl.scriber.mvi.compose.ComponentScope
@@ -13,6 +14,7 @@ private inline fun <R> loadDagger(block: () -> R): R = run {
     val applicationComponent = DaggerApplicationComponent.create()
     ApplicationComponentStore.component = applicationComponent
     VideoComponentStore.dependencies = applicationComponent
+    CameraComponentStore.dependencies = applicationComponent
     block.invoke()
 }
 
