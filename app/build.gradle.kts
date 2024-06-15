@@ -24,15 +24,9 @@ dependencies {
     implementation(project(":configuration:ui"))
     implementation(project(":configuration:domain"))
 
-    implementation(project(":video"))
+    implementation(project(":video:api"))
     implementation(project(":video:ui"))
     implementation(project(":video:domain"))
-    implementation(project(":video:data"))
-
-    implementation(project(":player:api"))
-    implementation(project(":player:ui"))
-    implementation(project(":player:domain"))
-    implementation(project(":player:data"))
 }
 
 compose.desktop {

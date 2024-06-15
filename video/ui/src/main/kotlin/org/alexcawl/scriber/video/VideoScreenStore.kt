@@ -6,12 +6,13 @@ import kotlinx.coroutines.flow.first
 import org.alexcawl.scriber.mvi.core.Store
 import org.alexcawl.scriber.mvi.log.Log
 import java.io.File
+import javax.inject.Inject
 
-class VideoScreenStore(
+class VideoScreenStore @Inject constructor(
     scope: CoroutineScope,
     private val getFile: GetVideoFileUseCase,
     private val setFile: SetVideoFileUseCase,
-    private val detectVideo: DetectVideoUseCase
+    private val detectVideo: DownloadDetectedVideoUseCase
 ) : Store<VideoScreenState, VideoScreenAction>(scope, VideoScreenState.Initial) {
     private val videoPlayerOpened: MutableStateFlow<Boolean> = MutableStateFlow(false)
 

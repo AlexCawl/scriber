@@ -5,8 +5,9 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import org.alexcawl.common.DetectionParameters
 import org.alexcawl.common.PropertyRepository
+import javax.inject.Inject
 
-class DetectionParametersRepository(
+class DetectionParametersRepository @Inject constructor(
     private val accuracyPropertyRepository: AccuracyPropertyRepository,
     private val blurScalePropertyRepository: BlurScalePropertyRepository,
     private val thresholdPropertyRepository: ThresholdPropertyRepository

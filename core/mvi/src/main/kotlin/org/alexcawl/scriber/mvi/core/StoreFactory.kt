@@ -1,8 +1,9 @@
 package org.alexcawl.scriber.mvi.core
 
+import javax.inject.Inject
 import javax.inject.Provider
 
-abstract class StoreFactory(
+class StoreFactory @Inject constructor(
     private val creators: @JvmSuppressWildcards Map<Class<out Disposable>, Provider<Disposable>>
 ) : Disposable.Factory {
     @Suppress("UNCHECKED_CAST")

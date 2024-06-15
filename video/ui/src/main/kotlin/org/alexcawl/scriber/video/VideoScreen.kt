@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import org.alexcawl.configuration.ConfigurationScreen
-import org.alexcawl.player.PlayerScreen
+import org.alexcawl.scriber.video.player.PlayerScreen
 import org.alexcawl.scriber.mvi.compose.StoreScope
 import org.alexcawl.scriber.ui.component.input.ToggleFileInputField
 

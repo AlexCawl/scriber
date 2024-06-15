@@ -30,18 +30,11 @@ include(":core:cv")
 include(":core:data")
 
 // :video
-include(":video")
+include(":video:api")
 include(":video:ui")
 include(":video:domain")
-include(":video:data")
 
 // :configuration
 include(":configuration")
 include(":configuration:ui")
 include(":configuration:domain")
-
-// :player
-include(":player:api")
-include(":player:ui")
-include(":player:domain")
-include(":player:data")

@@ -6,8 +6,9 @@ import org.alexcawl.scriber.mvi.core.Store
 import org.alexcawl.scriber.ui.navigation.NavigationAction
 import org.alexcawl.scriber.ui.navigation.NavigationState
 import org.alexcawl.scriber.ui.navigation.NavigationStore
+import javax.inject.Inject
 
-class ApplicationStore(
+class ApplicationStore @Inject constructor(
     scope: CoroutineScope,
     private val navigationStore: NavigationStore,
     private val themeRepository: ThemeRepository
