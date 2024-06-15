@@ -33,6 +33,7 @@ include(":core:data")
 include(":video:api")
 include(":video:ui")
 include(":video:domain")
+include(":video:data")
 
 // :configuration
 include(":configuration")

@@ -1,7 +1,6 @@
 package org.alexcawl.scriber.video
 
 import org.alexcawl.common.SetUseCase
-import org.alexcawl.scriber.data.video.VideoFileRepository
 import java.io.File
 import javax.inject.Inject
 

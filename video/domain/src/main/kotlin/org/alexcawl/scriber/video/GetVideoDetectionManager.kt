@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.map
 import org.alexcawl.common.GetUseCase
 import org.alexcawl.scriber.cv.VideoDetectionManager
 import org.alexcawl.scriber.data.configuration.DetectionParametersRepository
-import org.alexcawl.scriber.data.video.VideoFileRepository
 import java.util.*
 import javax.inject.Inject
 

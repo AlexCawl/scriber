@@ -1,4 +1,4 @@
-package org.alexcawl.scriber
+package org.alexcawl.scriber.di
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
