@@ -1,42 +1,30 @@
 package org.alexcawl.scriber.camera.camera
 
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.toComposeImageBitmap
 import kotlinx.coroutines.CoroutineScope
-import org.alexcawl.scriber.camera.GetDetectedCameraVideoUseCase
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.first
 import org.alexcawl.scriber.mvi.core.Store
-import org.alexcawl.scriber.mvi.log.Log
-import org.jetbrains.skia.Image
 import javax.inject.Inject
 
 class CameraScreenStore @Inject constructor(
-    scope: CoroutineScope,
-    private val getVideo: GetDetectedCameraVideoUseCase
+    scope: CoroutineScope
 ) : Store<CameraScreenState, CameraScreenAction>(scope, CameraScreenState.Initial) {
+    private val playerOpenedState = MutableStateFlow(false)
+
     init {
         task {
-            getVideo(Unit).collect { videoFrame ->
+            playerOpenedState.collect { isOpened ->
                 reduce {
-                    when (val byteArray = videoFrame.getOrNull()) {
-                        null -> CameraScreenState.Initial
-                        else -> when (val image = convertToImage(byteArray)) {
-                            null -> CameraScreenState.Initial
-                            else -> CameraScreenState.State(image)
-                        }
-                    }
+                    CameraScreenState.State(isOpened)
                 }
             }
         }
     }
 
-    override fun handle(event: CameraScreenAction) {
-        TODO("Not yet implemented")
-    }
-
-    private fun convertToImage(bytes: ByteArray): ImageBitmap? = try {
-        Image.makeFromEncoded(bytes).toComposeImageBitmap()
-    } catch (exception: Exception) {
-        storeLogger.log(Log("Player", exception))
-        null
+    override fun handle(event: CameraScreenAction) = when (event) {
+        CameraScreenAction.ToggleCameraPlayer -> task {
+            val playerOpened: Boolean = playerOpenedState.first()
+            playerOpenedState.emit(playerOpened.not())
+        }
     }
 }

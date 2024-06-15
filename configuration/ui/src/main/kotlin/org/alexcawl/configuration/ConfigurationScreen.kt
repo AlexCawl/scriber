@@ -41,7 +41,7 @@ private fun ConfigurationScreenContent(
     modifier: Modifier = Modifier
 ) = Column(
     modifier = modifier.background(MaterialTheme.colors.background),
-    verticalArrangement = Arrangement.spacedBy(32.dp, Alignment.Top),
+    verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
     horizontalAlignment = Alignment.Start
 ) {
     ValidatedInputCard(
