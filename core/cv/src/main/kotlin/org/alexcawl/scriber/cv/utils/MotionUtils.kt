@@ -11,7 +11,7 @@ import kotlin.properties.Delegates
 
 private val converter: OpenCVFrameConverter.ToMat = OpenCVFrameConverter.ToMat()
 
-fun detectMotion(frames: Sequence<Frame>, detectionParameters: DetectionParameters = DetectionParameters(1f, 3.0f, 1)): Sequence<Frame> {
+fun detectMotion(frames: Sequence<Frame>, detectionParameters: DetectionParameters): Sequence<Frame> {
     var difference: Mat by Delegates.notNull()
     var mask: Mat by Delegates.notNull()
     var previousFrame: Mat by Delegates.notNull()
@@ -22,7 +22,7 @@ fun detectMotion(frames: Sequence<Frame>, detectionParameters: DetectionParamete
         .map { currentFrame ->
             difference = Mat(currentFrame.size(), CV_8UC1) // Создаем Mat
             cvtColor(currentFrame, difference, COLOR_BGR2GRAY) // Загружаем ч/б кадр
-            GaussianBlur(difference, difference, Size(3, 3), 0.0) // Размываем
+            GaussianBlur(difference, difference, Size(detectionParameters.blurScale.toInt(), detectionParameters.blurScale.toInt()), 0.0) // Размываем
 
             when (isFirstFrame) {
                 true -> {
@@ -33,9 +33,9 @@ fun detectMotion(frames: Sequence<Frame>, detectionParameters: DetectionParamete
                 false -> {
                     subtract(difference, previousFrame, mask)
                     adaptiveThreshold(
-                        mask, mask, 255.0, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY_INV, 5, 2.0
+                        mask, mask, 255.0, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY_INV, detectionParameters.threshold, 2.0
                     )
-                    detectionContours(mask, currentFrame).forEach {
+                    detectionContours(mask, currentFrame, detectionParameters.accuracy).forEach {
                         val scalar = Scalar(0.0, 255.0, 0.0, 0.0)
                         rectangle(currentFrame, it.br(), it.tl(), scalar)
                     }
@@ -48,11 +48,10 @@ fun detectMotion(frames: Sequence<Frame>, detectionParameters: DetectionParamete
         }
 }
 
-private fun detectionContours(mask: Mat, image: Mat): List<Rect> {
+private fun detectionContours(mask: Mat, image: Mat, maxArea: Float): List<Rect> {
     val contours = MatVector()
     findContours(mask, contours, Mat(), RETR_LIST, CHAIN_APPROX_SIMPLE)
 
-    val maxArea = 100.0
     var rectangle: Rect
     val rectangleList: MutableList<Rect> = mutableListOf()
 

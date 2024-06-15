@@ -18,10 +18,10 @@ class VideoDetectionManager(
     private val detectionParameters: DetectionParameters
 ) {
     fun getMotionDetectedVideo(): Sequence<ByteArray> {
-        val holder = VideoDetector(detectionParameters, videoFile)
+        val detector = VideoDetector(detectionParameters)
         return FFmpegFrameGrabber(videoFile).use { grabber: FrameGrabber ->
             val frames: Sequence<Frame> = downloadVideo(grabber)
-            holder.detect(frames).map {
+            detector.detect(frames).map {
                 val stream = ByteArrayOutputStream()
                 ImageIO.write(toBufferedImage(it), "jpg", stream)
                 stream.toByteArray()
@@ -30,12 +30,12 @@ class VideoDetectionManager(
     }
 
     fun loadMotionDetectedVideo(suffix: String) {
-        val holder = VideoDetector(detectionParameters, videoFile)
+        val detector = VideoDetector(detectionParameters)
         FFmpegFrameGrabber(videoFile).use { grabber: FrameGrabber ->
             val frames: Sequence<Frame> = downloadVideo(grabber)
             val outputVideoFile: File = videoFile.getOutput(suffix)
             produceEqualRecorder(outputVideoFile, grabber).use { recorder: FrameRecorder ->
-                uploadVideo(recorder, holder.detect(frames))
+                uploadVideo(recorder, detector.detect(frames))
             }
         }
     }
