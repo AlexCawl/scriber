@@ -20,7 +20,6 @@ dependencies {
     implementation(project(":configuration:ui"))
     implementation(project(":configuration:domain"))
 
-    implementation(project(":video:api"))
     implementation(project(":video:ui"))
     implementation(project(":video:domain"))
     implementation(project(":video:data"))

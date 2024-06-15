@@ -1,9 +1,10 @@
-package org.alexcawl.scriber.video
+package org.alexcawl.scriber.video.video
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.TooltipArea
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Download
@@ -17,6 +18,7 @@ import org.alexcawl.configuration.ConfigurationScreen
 import org.alexcawl.scriber.video.player.PlayerScreen
 import org.alexcawl.scriber.mvi.compose.StoreScope
 import org.alexcawl.scriber.ui.component.input.ToggleFileInputField
+import org.alexcawl.scriber.video.file.VideoFileScreen
 
 @Composable
 fun VideoScreen(
@@ -95,22 +97,18 @@ internal fun VideoScreenContent(
         }
     }
 ) { padding: PaddingValues ->
-    Column(
-        modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp),
+    LazyColumn(
+        modifier = Modifier.fillMaxSize().padding(padding),
         verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.Top),
-        horizontalAlignment = Alignment.Start
+        horizontalAlignment = Alignment.Start,
+        contentPadding = PaddingValues(16.dp)
     ) {
-        Card {
-            ToggleFileInputField(
-                title = "Select file:",
-                isSingleSelection = true,
-                consume = { event(VideoScreenAction.SelectVideoFile(it)) },
-                modifier = Modifier
-                    .padding(16.dp)
-                    .height(64.dp)
-            )
+        item(key = "video_file_screen") {
+            VideoFileScreen(modifier = Modifier.fillMaxWidth())
         }
-        ConfigurationScreen(modifier = Modifier.fillMaxWidth())
+        item(key = "configuration_screen") {
+            ConfigurationScreen(modifier = Modifier.fillMaxWidth())
+        }
     }
 
     if (state.playerOpened) {

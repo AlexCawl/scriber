@@ -1,9 +1,6 @@
 package org.alexcawl.scriber.video
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import org.alexcawl.common.GetUseCase
 import org.alexcawl.scriber.cv.VideoDetectionManager
 import org.alexcawl.scriber.data.configuration.DetectionParametersRepository

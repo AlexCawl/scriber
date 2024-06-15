@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.LinkedCamera
 import androidx.compose.material.icons.filled.Screenshot
 import androidx.compose.material.icons.filled.VideoFile
@@ -22,7 +21,8 @@ import org.alexcawl.scriber.ui.component.input.ToggleFileInputField
 import org.alexcawl.scriber.ui.component.layout.DesktopScaffold
 import org.alexcawl.scriber.ui.theme.ExtendedTheme
 import org.alexcawl.scriber.ui.theme.ThemeScope
-import org.alexcawl.scriber.video.VideoScreen
+import org.alexcawl.scriber.video.VideoFeature
+import org.alexcawl.scriber.video.video.VideoScreen
 
 @Composable
 fun ApplicationScreen() = StoreScope<ApplicationState, ApplicationAction, ApplicationStore> {
@@ -112,7 +112,7 @@ private fun ApplicationStore.ApplicationScreenContent(state: ApplicationState) {
                 }
             }
 
-            is ApplicationState.VideoDetectionScreen -> VideoScreen(modifier = Modifier.fillMaxSize())
+            is ApplicationState.VideoDetectionScreen -> VideoFeature(modifier = Modifier.fillMaxSize())
         }
     }
 }

@@ -29,19 +29,20 @@ class VideoDetectionManager(
         }
     }
 
-    fun loadMotionDetectedVideo(outputVideoFile: File = videoFile.getOutput()) {
+    fun loadMotionDetectedVideo(suffix: String) {
         val holder = VideoDetector(detectionParameters, videoFile)
         FFmpegFrameGrabber(videoFile).use { grabber: FrameGrabber ->
             val frames: Sequence<Frame> = downloadVideo(grabber)
+            val outputVideoFile: File = videoFile.getOutput(suffix)
             produceEqualRecorder(outputVideoFile, grabber).use { recorder: FrameRecorder ->
                 uploadVideo(recorder, holder.detect(frames))
             }
         }
     }
 
-    private fun File.getOutput(): File {
+    private fun File.getOutput(suffix: String = "_log"): File {
         val directory: String = this.parent
-        val name: String = this.nameWithoutExtension + "log"
+        val name: String = this.nameWithoutExtension + suffix
         val extension: String = this.extension
         return File(directory, "$name.$extension")
     }

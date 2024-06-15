@@ -8,4 +8,5 @@ import javax.inject.Inject
 
 private val BLUR_SCALE = floatPreferencesKey("blur_scale")
 
-class BlurScalePropertyRepository @Inject constructor(dataStore: DataStore<Preferences>) : DataStorePropertyRepository<Float>(dataStore, BLUR_SCALE, 0f)
+class BlurScalePropertyRepository @Inject constructor(dataStore: DataStore<Preferences>) :
+    DataStorePropertyRepository<Float>(dataStore, BLUR_SCALE, 0f)

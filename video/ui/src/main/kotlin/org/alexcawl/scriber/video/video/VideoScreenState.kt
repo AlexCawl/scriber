@@ -1,4 +1,4 @@
-package org.alexcawl.scriber.video
+package org.alexcawl.scriber.video.video
 
 import androidx.compose.runtime.Immutable
 import java.io.File

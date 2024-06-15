@@ -30,7 +30,6 @@ include(":core:cv")
 include(":core:data")
 
 // :video
-include(":video:api")
 include(":video:ui")
 include(":video:domain")
 include(":video:data")

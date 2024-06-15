@@ -2,7 +2,7 @@ package org.alexcawl.scriber.di
 
 import dagger.Component
 import org.alexcawl.scriber.mvi.core.DependencyComponent
-import org.alexcawl.scriber.video.VideoComponentDeps
+import org.alexcawl.scriber.video.di.VideoComponentDeps
 import javax.inject.Singleton
 
 @Singleton

@@ -1,4 +1,4 @@
-package org.alexcawl.scriber.video
+package org.alexcawl.scriber.video.di
 
 import org.alexcawl.common.ComponentStore
 

@@ -8,4 +8,5 @@ import javax.inject.Inject
 
 private val ACCURACY = floatPreferencesKey("accuracy")
 
-class AccuracyPropertyRepository @Inject constructor(dataStore: DataStore<Preferences>) : DataStorePropertyRepository<Float>(dataStore, ACCURACY, 0f)
+class AccuracyPropertyRepository @Inject constructor(dataStore: DataStore<Preferences>) :
+    DataStorePropertyRepository<Float>(dataStore, ACCURACY, 0f)

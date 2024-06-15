@@ -16,7 +16,7 @@ import org.alexcawl.scriber.mvi.core.DisposableKey
 import org.alexcawl.scriber.mvi.core.StoreFactory
 import org.alexcawl.scriber.ui.ApplicationStore
 import org.alexcawl.scriber.ui.navigation.NavigationStore
-import org.alexcawl.scriber.video.VideoModule
+import org.alexcawl.scriber.video.di.VideoModule
 import javax.inject.Singleton
 
 @Module(includes = [VideoModule::class, ConfigurationModule::class])

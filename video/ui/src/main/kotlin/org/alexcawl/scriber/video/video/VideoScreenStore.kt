@@ -1,17 +1,18 @@
-package org.alexcawl.scriber.video
+package org.alexcawl.scriber.video.video
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import org.alexcawl.scriber.mvi.core.Store
 import org.alexcawl.scriber.mvi.log.Log
+import org.alexcawl.scriber.video.DownloadDetectedVideoUseCase
+import org.alexcawl.scriber.video.GetVideoFileUseCase
 import java.io.File
 import javax.inject.Inject
 
 class VideoScreenStore @Inject constructor(
     scope: CoroutineScope,
     private val getFile: GetVideoFileUseCase,
-    private val setFile: SetVideoFileUseCase,
     private val detectVideo: DownloadDetectedVideoUseCase
 ) : Store<VideoScreenState, VideoScreenAction>(scope, VideoScreenState.Initial) {
     private val videoPlayerOpened: MutableStateFlow<Boolean> = MutableStateFlow(false)
@@ -40,10 +41,6 @@ class VideoScreenStore @Inject constructor(
     }
 
     override fun handle(event: VideoScreenAction) = when (event) {
-        is VideoScreenAction.SelectVideoFile -> task {
-            setFile(event.file)
-        }
-
         VideoScreenAction.DownloadVideo -> task {
             when (val state = state.first()) {
                 VideoScreenState.Initial -> Unit

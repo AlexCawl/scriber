@@ -8,4 +8,5 @@ import javax.inject.Inject
 
 private val THRESHOLD = intPreferencesKey("threshold")
 
-class ThresholdPropertyRepository @Inject constructor(dataStore: DataStore<Preferences>) : DataStorePropertyRepository<Int>(dataStore, THRESHOLD, 0)
+class ThresholdPropertyRepository @Inject constructor(dataStore: DataStore<Preferences>) :
+    DataStorePropertyRepository<Int>(dataStore, THRESHOLD, 0)
