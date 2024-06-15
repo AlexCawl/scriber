@@ -18,10 +18,28 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "kmp-desktop-template"
+rootProject.name = "scriber"
 
 include(":app")
+
+// :core
 include(":core:common")
-include(":core:data")
-include(":core:di")
 include(":core:ui")
+include(":core:mvi")
+include(":core:cv")
+include(":core:data")
+
+// :video
+include(":video:ui")
+include(":video:domain")
+include(":video:data")
+
+// :camera
+include(":camera:ui")
+include(":camera:domain")
+include(":camera:data")
+
+// :configuration
+include(":configuration")
+include(":configuration:ui")
+include(":configuration:domain")
