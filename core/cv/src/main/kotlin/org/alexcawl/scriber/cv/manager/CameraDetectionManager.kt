@@ -9,9 +9,7 @@ import org.bytedeco.javacv.OpenCVFrameGrabber
 import java.io.ByteArrayOutputStream
 import javax.imageio.ImageIO
 
-class CameraDetectionManager(
-    private val detectionParameters: DetectionParameters
-) {
+class CameraDetectionManager(private val detectionParameters: DetectionParameters) {
     fun getMotionDetectedVideo(): Sequence<ByteArray> {
         val detector = OpenCvDetector(detectionParameters)
         return OpenCVFrameGrabber(0).use { grabber: FrameGrabber ->

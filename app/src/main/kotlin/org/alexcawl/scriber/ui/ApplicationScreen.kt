@@ -1,9 +1,12 @@
 package org.alexcawl.scriber.ui
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.Icon
+import androidx.compose.material.NavigationRail
+import androidx.compose.material.NavigationRailItem
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LinkedCamera
 import androidx.compose.material.icons.filled.Screenshot
@@ -11,18 +14,14 @@ import androidx.compose.material.icons.filled.VideoFile
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import org.alexcawl.scriber.camera.CameraScreenFeature
 import org.alexcawl.scriber.mvi.compose.StoreScope
-import org.alexcawl.scriber.ui.component.input.ToggleFileInputField
 import org.alexcawl.scriber.ui.component.layout.DesktopScaffold
-import org.alexcawl.scriber.ui.theme.ExtendedTheme
 import org.alexcawl.scriber.ui.theme.ThemeScope
 import org.alexcawl.scriber.video.VideoFeature
-import org.alexcawl.scriber.video.video.VideoScreen
 
 @Composable
 fun ApplicationScreen() = StoreScope<ApplicationState, ApplicationAction, ApplicationStore> {
@@ -93,25 +92,7 @@ private fun ApplicationStore.ApplicationScreenContent(state: ApplicationState) {
     ) {
         when (state) {
             is ApplicationState.Loading -> Unit
-            is ApplicationState.CameraDetectionScreen -> {
-                Column {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.Top,
-                        horizontalArrangement = Arrangement.spacedBy(ExtendedTheme.sizes.large, Alignment.Start)
-                    ) {
-                        ToggleFileInputField(
-                            title = "Select file:",
-                            isSingleSelection = true,
-                            consume = ::println,
-                            modifier = Modifier.weight(1f)
-                                .background(Color.LightGray, shape = MaterialTheme.shapes.large).padding(16.dp)
-                                .height(64.dp)
-                        )
-                    }
-                }
-            }
-
+            is ApplicationState.CameraDetectionScreen -> CameraScreenFeature(modifier = Modifier.fillMaxSize())
             is ApplicationState.VideoDetectionScreen -> VideoFeature(modifier = Modifier.fillMaxSize())
         }
     }

@@ -10,6 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import org.alexcawl.configuration.ConfigurationModule
+import org.alexcawl.scriber.camera.di.CameraModule
 import org.alexcawl.scriber.data.api.dataStorePreferences
 import org.alexcawl.scriber.mvi.core.Disposable
 import org.alexcawl.scriber.mvi.core.DisposableKey
@@ -19,7 +20,7 @@ import org.alexcawl.scriber.ui.navigation.NavigationStore
 import org.alexcawl.scriber.video.di.VideoModule
 import javax.inject.Singleton
 
-@Module(includes = [VideoModule::class, ConfigurationModule::class])
+@Module(includes = [VideoModule::class, ConfigurationModule::class, CameraModule::class])
 interface ApplicationModule {
     @Binds
     @IntoMap

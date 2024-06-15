@@ -1,15 +1,17 @@
 package org.alexcawl.scriber.camera.camera
 
 import androidx.compose.runtime.Immutable
+import androidx.compose.ui.graphics.ImageBitmap
+import org.jetbrains.skia.Bitmap
 
 @Immutable
 sealed interface CameraScreenState {
-    val isCameraOpened: Boolean
+    val image: ImageBitmap?
 
     data object Initial : CameraScreenState {
-        override val isCameraOpened: Boolean
-            get() = false
+        override val image: ImageBitmap?
+            get() = null
     }
 
-    data class State(override val isCameraOpened: Boolean) : CameraScreenState
+    data class State(override val image: ImageBitmap) : CameraScreenState
 }
