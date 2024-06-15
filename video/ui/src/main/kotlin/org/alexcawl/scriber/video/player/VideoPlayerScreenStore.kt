@@ -6,14 +6,12 @@ import kotlinx.coroutines.CoroutineScope
 import org.alexcawl.scriber.mvi.core.Store
 import org.alexcawl.scriber.mvi.log.Log
 import org.alexcawl.scriber.video.GetDetectedVideoUseCase
-import org.alexcawl.scriber.video.RestartDetectedVideoUseCase
 import org.jetbrains.skia.Image
 import javax.inject.Inject
 
 class VideoPlayerScreenStore @Inject constructor(
     scope: CoroutineScope,
-    getDetectedVideoUseCase: GetDetectedVideoUseCase,
-    private val restartVideoUseCase: RestartDetectedVideoUseCase
+    getDetectedVideoUseCase: GetDetectedVideoUseCase
 ) : Store<VideoPlayerScreenState, VideoPlayerScreenAction>(scope, VideoPlayerScreenState.Initial) {
     init {
         task {
@@ -31,13 +29,7 @@ class VideoPlayerScreenStore @Inject constructor(
         }
     }
 
-    override fun handle(event: VideoPlayerScreenAction) {
-        when (event) {
-            VideoPlayerScreenAction.Restart -> task {
-                restartVideoUseCase(Unit)
-            }
-        }
-    }
+    override fun handle(event: VideoPlayerScreenAction) = Unit
 
     private fun convertToImage(bytes: ByteArray): ImageBitmap? = try {
         Image.makeFromEncoded(bytes).toComposeImageBitmap()

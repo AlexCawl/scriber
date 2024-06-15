@@ -1,20 +1,19 @@
 package org.alexcawl.scriber.video
 
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import org.alexcawl.common.GetUseCase
 import org.alexcawl.scriber.cv.VideoDetectionManager
 import org.alexcawl.scriber.data.configuration.DetectionParametersRepository
-import java.util.*
 import javax.inject.Inject
 
 class GetVideoDetectionManager @Inject constructor(
     private val videoFileRepository: VideoFileRepository,
     private val detectionParametersRepository: DetectionParametersRepository
 ) : GetUseCase<Unit, VideoDetectionManager?>() {
-    private val key: MutableStateFlow<UUID> = MutableStateFlow(UUID.randomUUID())
-
     override fun execute(input: Unit): Flow<VideoDetectionManager?> =
-        key.combine(videoFileRepository.get()) { _, videoFile -> videoFile }
+        videoFileRepository.get()
             .combine(detectionParametersRepository.get(), ::Pair)
             .map { (videoFile, detectionParameters) ->
                 when (videoFile) {
@@ -22,6 +21,4 @@ class GetVideoDetectionManager @Inject constructor(
                     else -> VideoDetectionManager(videoFile, detectionParameters)
                 }
             }
-
-    suspend fun refresh() = key.emit(UUID.randomUUID())
 }
