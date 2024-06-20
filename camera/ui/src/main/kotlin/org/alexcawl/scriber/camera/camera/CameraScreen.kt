@@ -76,7 +76,7 @@ private fun CameraScreenContent(
     }
 
     if (state.isPlayerOpened) {
-        Window(onCloseRequest = { event(CameraScreenAction.ToggleCameraPlayer) }) {
+        Window(onCloseRequest = { event(CameraScreenAction.ToggleCameraPlayer) }, title = "Camera player") {
             CameraPlayerScreen(modifier = Modifier.fillMaxSize())
         }
     }
