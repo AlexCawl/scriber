@@ -1,20 +1,19 @@
 package org.alexcawl.scriber.ui
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.Icon
-import androidx.compose.material.NavigationRail
-import androidx.compose.material.NavigationRailItem
-import androidx.compose.material.Text
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LightMode
 import androidx.compose.material.icons.filled.LinkedCamera
-import androidx.compose.material.icons.filled.Screenshot
 import androidx.compose.material.icons.filled.VideoFile
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import org.alexcawl.scriber.camera.CameraScreenFeature
@@ -25,7 +24,7 @@ import org.alexcawl.scriber.video.VideoFeature
 
 @Composable
 fun ApplicationScreen() = StoreScope<ApplicationState, ApplicationAction, ApplicationStore> {
-    val state by this.state.collectAsState()
+    val state: ApplicationState by this.state.collectAsState()
     ThemeScope(state.isDarkTheme) {
         ApplicationScreenContent(state)
     }
@@ -79,7 +78,7 @@ private fun ApplicationStore.ApplicationScreenContent(state: ApplicationState) {
                     onClick = { consume(ApplicationAction.ToggleTheme) },
                     icon = {
                         Icon(
-                            imageVector = Icons.Default.Screenshot,
+                            imageVector = Icons.Default.LightMode,
                             contentDescription = null
                         )
                     },
@@ -91,9 +90,30 @@ private fun ApplicationStore.ApplicationScreenContent(state: ApplicationState) {
         }
     ) {
         when (state) {
-            is ApplicationState.Loading -> Unit
+            is ApplicationState.Loading -> DescriptionScreen(modifier = Modifier.fillMaxSize())
             is ApplicationState.CameraDetectionScreen -> CameraScreenFeature(modifier = Modifier.fillMaxSize())
             is ApplicationState.VideoDetectionScreen -> VideoFeature(modifier = Modifier.fillMaxSize())
         }
+    }
+}
+
+@Composable
+private fun DescriptionScreen(
+    modifier: Modifier = Modifier
+) = Box(modifier = modifier.background(color = MaterialTheme.colors.background), contentAlignment = Alignment.Center) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
+    ) {
+        val logo: Painter = painterResource("scriber_logo_colored.svg")
+        Image(
+            painter = logo,
+            contentDescription = null,
+            modifier = Modifier.size(128.dp)
+        )
+        Text(
+            text = "Scriber",
+            color = MaterialTheme.colors.onBackground
+        )
     }
 }

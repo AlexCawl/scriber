@@ -17,7 +17,6 @@ import androidx.compose.ui.window.Window
 import org.alexcawl.configuration.ConfigurationScreen
 import org.alexcawl.scriber.video.player.PlayerScreen
 import org.alexcawl.scriber.mvi.compose.StoreScope
-import org.alexcawl.scriber.ui.component.input.ToggleFileInputField
 import org.alexcawl.scriber.video.file.VideoFileScreen
 
 @Composable
@@ -112,7 +111,7 @@ internal fun VideoScreenContent(
     }
 
     if (state.playerOpened) {
-        Window(onCloseRequest = { event(VideoScreenAction.ToggleVideoPlayer) }) {
+        Window(onCloseRequest = { event(VideoScreenAction.ToggleVideoPlayer) }, title = "Video player") {
             PlayerScreen(modifier = Modifier.fillMaxSize())
         }
     }

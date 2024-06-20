@@ -22,7 +22,11 @@ fun main() = loadDagger {
     application {
         val logo = painterResource("scriber_logo_colored.svg")
         ComponentScope(ApplicationComponentStore.component) {
-            Window(onCloseRequest = ::exitApplication, icon = logo) {
+            Window(
+                onCloseRequest = ::exitApplication,
+                icon = logo,
+                title = "Scriber"
+            ) {
                 ApplicationScreen()
             }
         }
